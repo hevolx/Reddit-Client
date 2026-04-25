@@ -25,4 +25,12 @@ describe('postsSlice', () => {
     // Assert
     expect(state.error).toBeNull();
   });
+
+  it('fetchPosts pending sets status to loading', () => {
+    // Act
+    const state = postsReducer(undefined, { type: 'posts/fetchPosts/pending' });
+
+    // Assert
+    expect(state.status).toBe('loading');
+  });
 });
