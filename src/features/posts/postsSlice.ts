@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const postsSlice = createSlice({
   name: 'posts',
-  initialState: { status: 'idle' },
+  initialState: { status: 'idle', posts: [] },
   reducers: {
     postsReducer: (state, action) => {
-      state: undefined;
+      state: [];
     }
   }
 })
