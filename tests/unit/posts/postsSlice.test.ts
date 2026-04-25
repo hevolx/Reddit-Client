@@ -44,4 +44,19 @@ describe('postsSlice', () => {
     // Assert
     expect(state.error).toBeNull();
   });
+
+  it('fetchPosts fulfilled sets status to succeeded and replaces posts', () => {
+    // Arrange
+    const posts = [{ id: '1', title: 'Test post' }];
+
+    // Act
+    const state = postsReducer(undefined, {
+      type: 'posts/fetchPosts/fulfilled',
+      payload: posts,
+    });
+
+    // Assert
+    expect(state.status).toBe('succeeded');
+    expect(state.posts).toEqual(posts);
+  });
 });

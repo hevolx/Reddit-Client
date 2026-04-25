@@ -24,9 +24,13 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
-      state.status = 'loading',
-        state.error = null;
+      state.status = 'loading';
+      state.error = null;
     });
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.posts = action.payload;
+    })
   }
 });
 
