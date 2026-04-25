@@ -33,4 +33,15 @@ describe('postsSlice', () => {
     // Assert
     expect(state.status).toBe('loading');
   });
+
+  it('fetchPosts pending resets error to null', () => {
+    // Arrange
+    const stateWithError = { status: 'failed', posts: [], error: 'Network error' };
+
+    // Act
+    const state = postsReducer(stateWithError, { type: 'posts/fetchPosts/pending' });
+
+    // Assert
+    expect(state.error).toBeNull();
+  });
 });

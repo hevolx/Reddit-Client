@@ -24,7 +24,8 @@ const postsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
-      state.status = 'loading';
+      state.status = 'loading',
+        state.error = null;
     });
   }
 });
