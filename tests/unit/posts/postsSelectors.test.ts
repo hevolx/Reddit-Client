@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { selectAllPosts, selectPostsStatus } from '../../../src/features/posts/postsSelectors';
+import { selectAllPosts, selectPostsStatus, selectPostsError } from '../../../src/features/posts/postsSelectors';
 
 describe('postsSelectors', () => {
   it('selectAllPosts returns the posts array', () => {
@@ -23,5 +23,16 @@ describe('postsSelectors', () => {
 
     // Assert
     expect(result).toBe('loading');
+  });
+
+  it('selectPostsError returns the error value', () => {
+    // Arrange
+    const state = { posts: { status: 'failed', posts: [], error: 'Network error' } };
+
+    // Act
+    const result = selectPostsError(state);
+
+    // Assert
+    expect(result).toBe('Network error');
   });
 });
