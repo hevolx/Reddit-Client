@@ -17,4 +17,12 @@ describe('postsSlice', () => {
     // Assert
     expect(state.posts).toEqual([]);
   });
+
+  it('initial state has error null', () => {
+    // Act
+    const state = postsReducer(undefined, { type: '@@INIT' });
+
+    // Assert
+    expect(state.error).toBeNull();
+  });
 });
