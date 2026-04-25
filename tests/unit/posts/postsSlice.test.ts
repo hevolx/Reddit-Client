@@ -59,4 +59,16 @@ describe('postsSlice', () => {
     expect(state.status).toBe('succeeded');
     expect(state.posts).toEqual(posts);
   });
+
+  it('fetchPosts rejected sets status to failed and stores error message', () => {
+    // Act
+    const state = postsReducer(undefined, {
+      type: 'posts/fetchPosts/rejected',
+      error: { message: 'Network error' },
+    });
+
+    // Assert
+    expect(state.status).toBe('failed');
+    expect(state.error).toBe('Network error');
+  });
 });
