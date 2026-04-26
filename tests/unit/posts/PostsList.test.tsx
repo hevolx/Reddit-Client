@@ -41,4 +41,12 @@ describe('PostsList', () => {
     // Assert
     expect(screen.getByTestId('posts-error')).toBeInTheDocument();
   });
+
+  it('renders a "Try again" button when status is failed', () => {
+    // Act
+    render(<PostsList posts={[]} status="failed" error="Something went wrong" />);
+
+    // Assert
+    expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+  });
 });
