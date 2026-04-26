@@ -1,11 +1,13 @@
 import type { PostsState } from './postsSelectors';
 
-export const PostsList = (props: PostsState) => {
+type PostsListProps = PostsState & { onRetry?: () => void };
+
+export const PostsList = (props: PostsListProps) => {
   if (props.status == 'loading') {
     return (
       <ul>
         {Array.from({ length: 5 }).map((_, i) =>
-          <div key={i} data-testid="post-skeleton" />
+          <li key={i} data-testid="post-skeleton" />
         )}
       </ul>
     );
