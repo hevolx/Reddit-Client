@@ -22,7 +22,6 @@ export const PostCard = (_props: PostCardProps) => {
       <button data-testid="post-card" onClick={() => _props.onSelect?.(_props.post)}></button>
       <button aria-label="Upvote"></button>
       <button aria-label="Downvote"></button>
-
     </>
   );
 };

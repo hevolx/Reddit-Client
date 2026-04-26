@@ -127,6 +127,17 @@ describe('PostCard', () => {
     expect(screen.getByRole('button', { name: 'Upvote' })).toBeInTheDocument();
   });
 
+  it('downvote button has aria-label "Downvote"', () => {
+    // Arrange
+    const post = makePost();
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByRole('button', { name: 'Downvote' })).toBeInTheDocument();
+  });
+
   it('calls onSelect with the post object when clicked', async () => {
     // Arrange
     const post = makePost();
