@@ -1,5 +1,6 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { PostCard } from '../../../src/features/posts/PostCard';
 
 const makePost = (overrides = {}) => ({
@@ -113,5 +114,18 @@ describe('PostCard', () => {
 
     // Assert
     expect(screen.queryByTestId('post-thumbnail')).not.toBeInTheDocument();
+  });
+
+  it('calls onSelect with the post object when clicked', async () => {
+    // Arrange
+    const post = makePost();
+    const onSelect = vi.fn();
+
+    // Act
+    render(<PostCard post={post} onSelect={onSelect} />);
+    await userEvent.click(screen.getByTestId('post-card'));
+
+    // Assert
+    expect(onSelect).toHaveBeenCalledWith(post);
   });
 });

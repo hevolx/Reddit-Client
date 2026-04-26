@@ -4,6 +4,7 @@ import { formatRelativeTime } from './formatRelativeTime';
 
 type PostCardProps = {
   post: Post;
+  onSelect?: (post: Post) => void;
 };
 
 export const PostCard = (_props: PostCardProps) => {
@@ -16,7 +17,9 @@ export const PostCard = (_props: PostCardProps) => {
       <p data-testid="post-time">{formatRelativeTime(_props.post.createdUtc)}</p>
       {_props.post.thumbnail != "self" &&
         _props.post.thumbnail != "default" &&
-        _props.post.thumbnail != "" ? <img data-testid="post-thumbnail" src={_props.post.thumbnail}></img> : null}
+        _props.post.thumbnail != "" ?
+        <img data-testid="post-thumbnail" src={_props.post.thumbnail}></img> : null}
+      <button data-testid="post-card" onClick={() => _props.onSelect?.(_props.post)}></button>
     </>
   );
 };
