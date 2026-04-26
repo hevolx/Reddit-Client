@@ -36,4 +36,15 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByTestId('post-author')).toHaveTextContent('Posted by alice');
   });
+
+  it('displays formatted score', () => {
+    // Arrange
+    const post = makePost({ score: 1000 });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByTestId('post-score')).toHaveTextContent('1.0k');
+  });
 });
