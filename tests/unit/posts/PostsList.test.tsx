@@ -10,4 +10,12 @@ describe('PostsList', () => {
     // Assert
     expect(screen.getByText('No posts')).toBeInTheDocument();
   });
+
+  it('renders exactly 5 skeleton loaders when status is loading', () => {
+    // Act
+    render(<PostsList posts={[]} status="loading" error={null} />);
+
+    // Assert
+    expect(screen.getAllByTestId('post-skeleton')).toHaveLength(5);
+  });
 });
