@@ -6,10 +6,10 @@ const initialState = {
   error: null
 }
 
-
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
-  async () => {
+  async (subreddit: string) => {
+    fetch(`https://www.reddit.com/r/${subreddit}.json`);
     return 'posts/fetchPosts/pending';
   }
 );
