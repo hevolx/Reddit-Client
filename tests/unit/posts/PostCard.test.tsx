@@ -81,4 +81,37 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByTestId('post-thumbnail')).toHaveAttribute('src', 'https://example.com/image.jpg');
   });
+
+  it('renders no img when thumbnail is "self"', () => {
+    // Arrange
+    const post = makePost({ thumbnail: 'self' });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.queryByTestId('post-thumbnail')).not.toBeInTheDocument();
+  });
+
+  it('renders no img when thumbnail is "default"', () => {
+    // Arrange
+    const post = makePost({ thumbnail: 'default' });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.queryByTestId('post-thumbnail')).not.toBeInTheDocument();
+  });
+
+  it('renders no img when thumbnail is empty string', () => {
+    // Arrange
+    const post = makePost({ thumbnail: '' });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.queryByTestId('post-thumbnail')).not.toBeInTheDocument();
+  });
 });
