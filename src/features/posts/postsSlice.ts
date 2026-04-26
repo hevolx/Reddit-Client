@@ -1,5 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+interface RedditChild {
+  data: {
+    id: string;
+    title: string;
+    author: string;
+    score: number;
+    num_comments: number;
+    created_utc: number;
+    thumbnail: string;
+    permalink: string;
+  };
+}
+
 const initialState = {
   status: 'idle',
   posts: [],
@@ -13,7 +26,7 @@ export const fetchPosts = createAsyncThunk(
     if (response.ok) {
       const data = await response.json();
       const children = data.data.children;
-      return children.map((child: any) => ({
+      return children.map((child: RedditChild) => ({
         id: child.data.id,
         title: child.data.title,
         author: child.data.author,
@@ -32,11 +45,7 @@ export const fetchPosts = createAsyncThunk(
 const postsSlice = createSlice({
   name: 'posts',
   initialState: initialState,
-  reducers: {
-    postsReducer: (state, action) => {
-
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
       state.status = 'loading';
@@ -53,5 +62,4 @@ const postsSlice = createSlice({
   }
 });
 
-export const { postsReducer } = postsSlice.actions;
 export default postsSlice.reducer;

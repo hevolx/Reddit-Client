@@ -1,4 +1,4 @@
-export const selectAllPosts = (state: { posts: { posts: any[] } }) => {
+export const selectAllPosts = (state: { posts: { posts: unknown[] } }) => {
   return state.posts.posts;
 }
 
