@@ -14,6 +14,7 @@ export const PostCard = (_props: PostCardProps) => {
       <p data-testid="post-score">{formatScore(_props.post.score)}</p>
       <p data-testid="post-comment-count">{_props.post.numComments}</p>
       <p data-testid="post-time">{formatRelativeTime(_props.post.createdUtc)}</p>
+      <img data-testid="post-thumbnail" src={_props.post.thumbnail}></img>
     </>
   );
 };

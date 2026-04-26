@@ -70,4 +70,15 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByTestId('post-time')).toHaveTextContent('just now');
   });
+
+  it('renders img element when thumbnail is a valid URL', () => {
+    // Arrange
+    const post = makePost({ thumbnail: 'https://example.com/image.jpg' });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByTestId('post-thumbnail')).toHaveAttribute('src', 'https://example.com/image.jpg');
+  });
 });
