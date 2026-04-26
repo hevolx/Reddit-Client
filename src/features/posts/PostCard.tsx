@@ -20,6 +20,9 @@ export const PostCard = (_props: PostCardProps) => {
         _props.post.thumbnail != "" ?
         <img data-testid="post-thumbnail" src={_props.post.thumbnail}></img> : null}
       <button data-testid="post-card" onClick={() => _props.onSelect?.(_props.post)}></button>
+      <button aria-label="Upvote"></button>
+      <button aria-label="Downvote"></button>
+
     </>
   );
 };

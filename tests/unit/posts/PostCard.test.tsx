@@ -116,6 +116,17 @@ describe('PostCard', () => {
     expect(screen.queryByTestId('post-thumbnail')).not.toBeInTheDocument();
   });
 
+  it('upvote button has aria-label "Upvote"', () => {
+    // Arrange
+    const post = makePost();
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByRole('button', { name: 'Upvote' })).toBeInTheDocument();
+  });
+
   it('calls onSelect with the post object when clicked', async () => {
     // Arrange
     const post = makePost();
