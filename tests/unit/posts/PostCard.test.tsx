@@ -25,4 +25,15 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByRole('heading', { name: 'My awesome post' })).toBeInTheDocument();
   });
+
+  it('displays author prefixed with "Posted by"', () => {
+    // Arrange
+    const post = makePost({ author: 'alice' });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByTestId('post-author')).toHaveTextContent('Posted by alice');
+  });
 });

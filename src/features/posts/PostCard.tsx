@@ -5,5 +5,10 @@ type PostCardProps = {
 };
 
 export const PostCard = (_props: PostCardProps) => {
-  return <h1>{_props.post.title}</h1>
+  return (
+    <>
+      <h1>{_props.post.title}</h1>
+      <p data-testid="post-author">Posted by {_props.post.author}</p>
+    </>
+  );
 };
