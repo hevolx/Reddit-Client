@@ -1,4 +1,4 @@
-dD9yq5B!123namename: CI
+name: CI
 
 on:
   pull_request:
