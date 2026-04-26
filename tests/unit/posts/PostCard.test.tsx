@@ -47,4 +47,15 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByTestId('post-score')).toHaveTextContent('1.0k');
   });
+
+  it('displays comment count', () => {
+    // Arrange
+    const post = makePost({ numComments: 42 });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByTestId('post-comment-count')).toHaveTextContent('42');
+  });
 });
