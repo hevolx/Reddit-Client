@@ -13,9 +13,20 @@ interface RedditChild {
   };
 }
 
+export interface Post {
+  id: string;
+  title: string;
+  author: string;
+  score: number;
+  numComments: number;
+  createdUtc: number;
+  thumbnail: string;
+  permalink: string;
+}
+
 interface PostsState {
-  status: string;
-  posts: unknown[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  posts: Post[];
   error: string | null;
 }
 
@@ -32,7 +43,7 @@ export const fetchPosts = createAsyncThunk(
     if (response.ok) {
       const data = await response.json();
       const children = data.data.children;
-      return children.map((child: RedditChild) => ({
+      return children.map((child: RedditChild): Post => ({
         id: child.data.id,
         title: child.data.title,
         author: child.data.author,
@@ -43,7 +54,7 @@ export const fetchPosts = createAsyncThunk(
         permalink: child.data.permalink
       }));
     } else {
-      throw new Error('HTTP error 400');
+      throw new Error(`HTTP error ${response.status}`);
     }
   }
 );

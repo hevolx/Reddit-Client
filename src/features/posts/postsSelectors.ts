@@ -1,11 +1,13 @@
-export const selectAllPosts = (state: { posts: { posts: unknown[] } }) => {
-  return state.posts.posts;
-}
+import type { Post } from './postsSlice';
 
-export const selectPostsStatus = (state: { posts: { status: string } }) => {
-  return state.posts.status;
-}
+type PostsState = {
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  posts: Post[];
+  error: string | null;
+};
 
-export const selectPostsError = (state: { posts: { error: string | null } }) => {
-  return state.posts.error;
-}
+type RootState = { posts: PostsState };
+
+export const selectAllPosts = (state: RootState) => state.posts.posts;
+export const selectPostsStatus = (state: RootState) => state.posts.status;
+export const selectPostsError = (state: RootState) => state.posts.error;

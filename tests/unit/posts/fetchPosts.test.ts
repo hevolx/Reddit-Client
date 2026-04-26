@@ -84,6 +84,7 @@ describe('fetchPosts', () => {
     const fulfilledCall = dispatch.mock.calls.find(
       (call) => call[0]?.type === 'posts/fetchPosts/fulfilled'
     );
+    expect(fulfilledCall).toBeDefined();
     expect(fulfilledCall![0].payload).toEqual([
       {
         id: 'abc123',
