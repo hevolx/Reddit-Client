@@ -13,7 +13,13 @@ interface RedditChild {
   };
 }
 
-const initialState = {
+interface PostsState {
+  status: string;
+  posts: unknown[];
+  error: string | null;
+}
+
+const initialState: PostsState = {
   status: 'idle',
   posts: [],
   error: null
@@ -57,7 +63,7 @@ const postsSlice = createSlice({
     });
     builder.addCase(fetchPosts.rejected, (state, action) => {
       state.status = 'failed';
-      state.error = action.error.message;
+      state.error = action.error.message ?? 'Unknown error';
     });
   }
 });

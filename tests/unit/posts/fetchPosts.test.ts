@@ -35,7 +35,7 @@ describe('fetchPosts', () => {
       (call) => call[0]?.type === 'posts/fetchPosts/rejected'
     );
     expect(rejectedCall).toBeDefined();
-    expect(rejectedCall[0].error.message).toBe('HTTP error 400');
+    expect(rejectedCall![0].error.message).toBe('HTTP error 400');
   });
 
   it('throws when fetch throws a network error', async () => {
@@ -52,7 +52,7 @@ describe('fetchPosts', () => {
       (call) => call[0]?.type === 'posts/fetchPosts/rejected'
     );
     expect(rejectedCall).toBeDefined();
-    expect(rejectedCall[0].error.message).toBe('Failed to fetch');
+    expect(rejectedCall![0].error.message).toBe('Failed to fetch');
   });
 
   it('maps response to expected post object shape', async () => {
@@ -84,7 +84,7 @@ describe('fetchPosts', () => {
     const fulfilledCall = dispatch.mock.calls.find(
       (call) => call[0]?.type === 'posts/fetchPosts/fulfilled'
     );
-    expect(fulfilledCall[0].payload).toEqual([
+    expect(fulfilledCall![0].payload).toEqual([
       {
         id: 'abc123',
         title: 'Test title',
