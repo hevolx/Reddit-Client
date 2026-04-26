@@ -58,4 +58,16 @@ describe('PostCard', () => {
     // Assert
     expect(screen.getByTestId('post-comment-count')).toHaveTextContent('42');
   });
+
+  it('displays relative time', () => {
+    // Arrange
+    const now = Math.floor(Date.now() / 1000);
+    const post = makePost({ createdUtc: now - 30 });
+
+    // Act
+    render(<PostCard post={post} />);
+
+    // Assert
+    expect(screen.getByTestId('post-time')).toHaveTextContent('just now');
+  });
 });
