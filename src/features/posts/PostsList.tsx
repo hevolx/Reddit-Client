@@ -14,7 +14,7 @@ export const PostsList = (props: PostsState) => {
     return (
       <>
         <div data-testid="posts-error" />
-        <button>Try again</button>
+        <button onClick={props.onRetry}>Try again</button>
       </>
     )
   }

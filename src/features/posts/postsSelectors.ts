@@ -4,6 +4,7 @@ export type PostsState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   posts: Post[];
   error: string | null;
+  onRetry?: () => void;
 };
 
 type RootState = { posts: PostsState };

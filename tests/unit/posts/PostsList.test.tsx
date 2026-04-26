@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { PostsList } from '../../../src/features/posts/PostsList';
 
 describe('PostsList', () => {
@@ -48,5 +48,17 @@ describe('PostsList', () => {
 
     // Assert
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
+  });
+
+  it('calls onRetry when "Try again" button is clicked', () => {
+    // Arrange
+    const onRetry = vi.fn();
+    render(<PostsList posts={[]} status="failed" error="Something went wrong" onRetry={onRetry} />);
+
+    // Act
+    fireEvent.click(screen.getByRole('button', { name: 'Try again' }));
+
+    // Assert
+    expect(onRetry).toHaveBeenCalledOnce();
   });
 });
