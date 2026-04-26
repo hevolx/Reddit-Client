@@ -13,6 +13,12 @@ export const PostsList = (props: PostsState) => {
   else if (props.posts.length == 0) {
     return <p>No posts</p>;
   } else {
-    return null
+    return (
+      <ul>
+        {props.posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+    );
   }
 };
