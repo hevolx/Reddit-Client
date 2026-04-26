@@ -1,6 +1,6 @@
 import type { Post } from './postsSlice';
 
-type PostsState = {
+export type PostsState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   posts: Post[];
   error: string | null;
