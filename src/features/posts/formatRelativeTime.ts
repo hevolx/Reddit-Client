@@ -1,3 +1,12 @@
+/**
+ * Produces a human-readable relative time string for a Unix timestamp.
+ *
+ * @param timeSeconds - The timestamp to compare, expressed as seconds since the Unix epoch.
+ * @returns A relative time string:
+ * - `in a few seconds` if the timestamp is in the future,
+ * - `just now` if within the last minute,
+ * - `{n} minute(s) ago`, `{n} hour(s) ago`, or `{n} day(s) ago` for larger intervals (singular form used when `n` is 1).
+ */
 export function formatRelativeTime(timeSeconds: number): string {
   const SECOND = 1;
   const MINUTE = 60 * SECOND;
