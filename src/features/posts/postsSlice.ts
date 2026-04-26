@@ -10,18 +10,22 @@ export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (subreddit: string) => {
     const response = await fetch(`https://www.reddit.com/r/${subreddit}.json`);
-    const data = await response.json();
-    const children = data.data.children;
-    return children.map((child: any) => ({
-      id: child.data.id,
-      title: child.data.title,
-      author: child.data.author,
-      score: child.data.score,
-      numComments: child.data.num_comments,
-      createdUtc: child.data.created_utc,
-      thumbnail: child.data.thumbnail,
-      permalink: child.data.permalink
-    }));
+    if (response.ok) {
+      const data = await response.json();
+      const children = data.data.children;
+      return children.map((child: any) => ({
+        id: child.data.id,
+        title: child.data.title,
+        author: child.data.author,
+        score: child.data.score,
+        numComments: child.data.num_comments,
+        createdUtc: child.data.created_utc,
+        thumbnail: child.data.thumbnail,
+        permalink: child.data.permalink
+      }));
+    } else {
+      throw new Error('HTTP error 400');
+    }
   }
 );
 

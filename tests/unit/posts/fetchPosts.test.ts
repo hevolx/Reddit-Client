@@ -8,7 +8,7 @@ describe('fetchPosts', () => {
 
   it('calls Reddit API endpoint with given subreddit', async () => {
     // Arrange
-    const mockResponse = { json: vi.fn().mockResolvedValue({ data: { children: [] } }) };
+    const mockResponse = { ok: true, json: vi.fn().mockResolvedValue({ data: { children: [] } }) };
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValue(mockResponse);
     const dispatch = vi.fn();
     const getState = vi.fn();
@@ -18,6 +18,41 @@ describe('fetchPosts', () => {
 
     // Assert
     expect(fetch).toHaveBeenCalledWith('https://www.reddit.com/r/reactjs.json');
+  });
+
+  it('throws when fetch returns HTTP >= 400', async () => {
+    // Arrange
+    const mockResponse = { ok: false, status: 400 };
+    (fetch as ReturnType<typeof vi.fn>).mockResolvedValue(mockResponse);
+    const dispatch = vi.fn();
+    const getState = vi.fn();
+
+    // Act
+    await fetchPosts('reactjs')(dispatch, getState, undefined);
+
+    // Assert
+    const rejectedCall = dispatch.mock.calls.find(
+      (call) => call[0]?.type === 'posts/fetchPosts/rejected'
+    );
+    expect(rejectedCall).toBeDefined();
+    expect(rejectedCall[0].error.message).toBe('HTTP error 400');
+  });
+
+  it('throws when fetch throws a network error', async () => {
+    // Arrange
+    (fetch as ReturnType<typeof vi.fn>).mockRejectedValue(new Error('Failed to fetch'));
+    const dispatch = vi.fn();
+    const getState = vi.fn();
+
+    // Act
+    await fetchPosts('reactjs')(dispatch, getState, undefined);
+
+    // Assert
+    const rejectedCall = dispatch.mock.calls.find(
+      (call) => call[0]?.type === 'posts/fetchPosts/rejected'
+    );
+    expect(rejectedCall).toBeDefined();
+    expect(rejectedCall[0].error.message).toBe('Failed to fetch');
   });
 
   it('maps response to expected post object shape', async () => {
@@ -35,6 +70,7 @@ describe('fetchPosts', () => {
       },
     };
     const mockResponse = {
+      ok: true,
       json: vi.fn().mockResolvedValue({ data: { children: [rawPost] } }),
     };
     (fetch as ReturnType<typeof vi.fn>).mockResolvedValue(mockResponse);
