@@ -16,9 +16,6 @@ export function formatRelativeTime(timeSeconds: number): string {
   const nowSeconds = Math.floor(Date.now() / 1000);
   const diff = nowSeconds - Math.floor(timeSeconds);
 
-  if (diff < 0) {
-    return 'in a few seconds';
-  }
   if (diff < MINUTE) {
     return 'just now';
   }

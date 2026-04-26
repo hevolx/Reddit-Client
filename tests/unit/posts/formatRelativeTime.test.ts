@@ -58,15 +58,4 @@ describe('formatRelativeTime', () => {
     // Assert
     expect(result).toBe('2 days ago');
   });
-
-  it('returns "in a few seconds" for future timestamps', () => {
-    // Arrange
-    const time = FIXED_NOW_S + 60;
-
-    // Act
-    const result = formatRelativeTime(time);
-
-    // Assert
-    expect(result).toBe('in a few seconds');
-  });
 });

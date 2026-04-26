@@ -3,7 +3,10 @@ import type { PostsState } from './postsSelectors';
 type PostsListProps = PostsState & { onRetry?: () => void };
 
 export const PostsList = (props: PostsListProps) => {
-  if (props.status == 'loading') {
+  if (props.status === 'idle') {
+    return null;
+  }
+  if (props.status === 'loading') {
     return (
       <ul>
         {Array.from({ length: 5 }).map((_, i) =>
@@ -12,23 +15,25 @@ export const PostsList = (props: PostsListProps) => {
       </ul>
     );
   }
-  else if (props.status == 'failed') {
+  if (props.status === 'failed') {
     return (
       <>
-        <div data-testid="posts-error" />
+        <div data-testid="posts-error" role="alert">
+          {props.error ?? 'Failed to load posts.'}
+        </div>
         <button onClick={props.onRetry}>Try again</button>
       </>
-    )
-  }
-  else if (props.posts.length == 0) {
-    return <p>No posts</p>;
-  } else {
-    return (
-      <ul>
-        {props.posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
     );
   }
+  // status === 'succeeded'
+  if (props.posts.length === 0) {
+    return <p>No posts</p>;
+  }
+  return (
+    <ul>
+      {props.posts.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
 };
