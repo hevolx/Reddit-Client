@@ -36,7 +36,7 @@ describe('postsSlice', () => {
 
   it('fetchPosts pending resets error to null', () => {
     // Arrange
-    const stateWithError = { status: 'failed', posts: [], error: 'Network error' };
+    const stateWithError = { status: 'failed' as const, posts: [], error: 'Network error' };
 
     // Act
     const state = postsReducer(stateWithError, { type: 'posts/fetchPosts/pending' });
