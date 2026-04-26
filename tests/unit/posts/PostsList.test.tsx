@@ -33,4 +33,12 @@ describe('PostsList', () => {
     expect(screen.getByText('First post')).toBeInTheDocument();
     expect(screen.getByText('Second post')).toBeInTheDocument();
   });
+
+  it('renders an error message when status is failed', () => {
+    // Act
+    render(<PostsList posts={[]} status="failed" error="Something went wrong" />);
+
+    // Assert
+    expect(screen.getByTestId('posts-error')).toBeInTheDocument();
+  });
 });

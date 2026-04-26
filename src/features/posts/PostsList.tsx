@@ -10,6 +10,9 @@ export const PostsList = (props: PostsState) => {
       </ul>
     );
   }
+  else if (props.status == 'failed') {
+    return <div data-testid="posts-error" />
+  }
   else if (props.posts.length == 0) {
     return <p>No posts</p>;
   } else {
