@@ -10,23 +10,23 @@ export function useUrlSync() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const q = decodeURIComponent(searchParams.get('q') || '');
-    const subreddit = decodeURIComponent(searchParams.get('subreddit') || '');
+    const q = searchParams.get('q') ?? '';
+    const subreddit = searchParams.get('subreddit');
     dispatch(setQuery(q));
-    dispatch(setCategory(subreddit));
+    dispatch(setCategory(subreddit && subreddit.length > 0 ? subreddit : null));
     isMounted.current = true;
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (!isMounted.current) return;
     const searchParams = new URLSearchParams(window.location.search);
     if (query) {
-      searchParams.set('q', encodeURIComponent(query));
+      searchParams.set('q', query);
     } else {
       searchParams.delete('q');
     }
     if (category) {
-      searchParams.set('subreddit', encodeURIComponent(category));
+      searchParams.set('subreddit', category);
     } else {
       searchParams.delete('subreddit');
     }

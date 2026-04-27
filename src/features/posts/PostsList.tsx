@@ -21,7 +21,9 @@ export const PostsList = (props: PostsListProps) => {
         <div data-testid="posts-error" role="alert">
           {props.error ?? 'Failed to load posts.'}
         </div>
-        <button onClick={() => props.onRetry?.()}>Try again</button>
+        {props.onRetry && (
+          <button onClick={props.onRetry}>Try again</button>
+        )}
       </>
     );
   }

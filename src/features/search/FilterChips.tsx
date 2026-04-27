@@ -8,6 +8,7 @@ export function FilterChips(_props: {
       {_props.categories.map((category) => (
         <button
           key={category.id}
+          type="button"
           aria-pressed={_props.activeId === category.id ? true : false}
           onClick={() => _props.onSelect(category.id)}>{category.label}</button>
       ))}

@@ -42,9 +42,9 @@ describe('PostsList', () => {
     expect(screen.getByTestId('posts-error')).toBeInTheDocument();
   });
 
-  it('renders a "Try again" button when status is failed', () => {
+  it('renders a "Try again" button when status is failed and onRetry is provided', () => {
     // Act
-    render(<PostsList posts={[]} status="failed" error="Something went wrong" />);
+    render(<PostsList posts={[]} status="failed" error="Something went wrong" onRetry={() => {}} />);
 
     // Assert
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
