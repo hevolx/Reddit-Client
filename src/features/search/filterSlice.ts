@@ -19,9 +19,13 @@ const filterSlice = createSlice({
     },
     setCategory(state, action) {
       state.category = action.payload;
+    },
+    clearFilter(state) {
+      state.query = '';
+      state.category = null;
     }
   },
 });
 
-export const { setQuery, setCategory } = filterSlice.actions;
+export const { setQuery, setCategory, clearFilter } = filterSlice.actions;
 export default filterSlice.reducer;
