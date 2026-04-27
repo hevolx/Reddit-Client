@@ -19,6 +19,20 @@ describe('useUrlSync', () => {
     window.history.replaceState({}, '', '/');
   });
 
+  it('reads ?subreddit= param into state on mount', () => {
+    // Arrange
+    window.history.replaceState({}, '', '/?subreddit=reactjs');
+    const store = makeStore();
+    const storeWrapper = ({ children }: { children: React.ReactNode }) =>
+      createElement(Provider, { store }, children);
+
+    // Act
+    renderHook(() => useUrlSync(), { wrapper: storeWrapper });
+
+    // Assert
+    expect(store.getState().filter.category).toBe('reactjs');
+  });
+
   it('reads ?q= param into state on mount', () => {
     // Arrange
     window.history.replaceState({}, '', '/?q=redux');
