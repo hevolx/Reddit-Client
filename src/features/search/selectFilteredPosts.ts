@@ -1,5 +1,6 @@
 import type { Post } from '../posts/postsSlice';
 
+/** Filters posts by subreddit category (exact match) and title query (substring, case-insensitive). */
 export function selectFilteredPosts(state: {
   posts: { posts: Post[] };
   filter: { query: string, category?: string };

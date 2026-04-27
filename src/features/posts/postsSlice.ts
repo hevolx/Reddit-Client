@@ -14,6 +14,7 @@ interface RedditChild {
   };
 }
 
+/** Normalised representation of a Reddit post. */
 export interface Post {
   id: string;
   title: string;
@@ -38,6 +39,7 @@ const initialState: PostsState = {
   error: null
 }
 
+/** Fetches the top posts for a given subreddit from the Reddit JSON API. */
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (subreddit: string) => {

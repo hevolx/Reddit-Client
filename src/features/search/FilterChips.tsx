@@ -1,3 +1,4 @@
+/** Renders a row of toggle buttons for selecting a subreddit category filter. */
 export function FilterChips(_props: {
   categories: { id: string; label: string }[];
   activeId: string | null;

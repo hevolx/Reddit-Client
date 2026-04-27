@@ -2,6 +2,7 @@ import type { PostsState } from './postsSelectors';
 
 type PostsListProps = PostsState & { onRetry?: () => void };
 
+/** Renders the posts list, skeleton loaders, an error state, or nothing depending on `status`. */
 export const PostsList = (props: PostsListProps) => {
   if (props.status === 'idle') {
     return null;

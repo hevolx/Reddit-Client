@@ -2,6 +2,11 @@ import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setQuery, setCategory } from './filterSlice';
 
+/**
+ * Syncs the Redux filter state with URL search params (?q= and ?subreddit=).
+ * On mount, reads params into state. On state change, updates the URL via replaceState.
+ * The `isMounted` ref prevents overwriting the URL during the initial read.
+ */
 export function useUrlSync() {
   const query = useSelector((state: { filter: { query: string } }) => state.filter.query);
   const category = useSelector((state: { filter: { category: string } }) => state.filter.category);

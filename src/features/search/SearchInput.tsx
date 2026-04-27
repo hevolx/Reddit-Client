@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 
+/** Debounced text input for searching posts, with a clear button when a value is present. */
 export function SearchInput(_props: { onChange: (value: string) => void, value: string }) {
   const timerId = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   useEffect(() => {
