@@ -7,6 +7,21 @@ const posts = [
 ];
 
 describe('selectFilteredPosts', () => {
+  it('filters by title case-insensitively', () => {
+    // Arrange
+    const state = {
+      posts: { status: 'succeeded' as const, posts, error: null },
+      filter: { query: 'REACT', category: null },
+    };
+
+    // Act
+    const result = selectFilteredPosts(state);
+
+    // Assert
+    expect(result).toHaveLength(1);
+    expect(result[0].title).toBe('React tips');
+  });
+
   it('returns all posts when query is empty', () => {
     // Arrange
     const state = {
