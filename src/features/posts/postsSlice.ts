@@ -10,6 +10,7 @@ interface RedditChild {
     created_utc: number;
     thumbnail: string;
     permalink: string;
+    subreddit: string;
   };
 }
 
@@ -22,6 +23,7 @@ export interface Post {
   createdUtc: number;
   thumbnail: string;
   permalink: string;
+  subreddit: string;
 }
 
 interface PostsState {
@@ -51,7 +53,8 @@ export const fetchPosts = createAsyncThunk(
         numComments: child.data.num_comments,
         createdUtc: child.data.created_utc,
         thumbnail: child.data.thumbnail,
-        permalink: child.data.permalink
+        permalink: child.data.permalink,
+        subreddit: child.data.subreddit
       }));
     } else {
       throw new Error(`HTTP error ${response.status}`);

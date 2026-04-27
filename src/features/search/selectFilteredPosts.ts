@@ -2,11 +2,15 @@ import type { Post } from '../posts/postsSlice';
 
 export function selectFilteredPosts(state: {
   posts: { posts: Post[] };
-  filter: { query: string, category: null };
+  filter: { query: string, category: string };
 }) {
   return state.posts.posts.filter((post) => {
     const title = post.title.toLowerCase();
     const query = state.filter.query.toLowerCase();
-    return title.includes(query);
+    const category = state.filter.category?.toLowerCase();
+
+    return (!category || post.subreddit === category) && title.includes(query);
+
+
   });
 }
