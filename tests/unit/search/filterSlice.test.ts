@@ -17,7 +17,7 @@ describe('filterSlice', () => {
     expect(state.category).toBeNull();
   });
 
-  it('setCategory updates state.filter.category', () => {
+  it('setCategory updates state.category', () => {
     // Arrange
     const initial = filterReducer(undefined, { type: '@@INIT' });
 
@@ -28,7 +28,7 @@ describe('filterSlice', () => {
     expect(state.category).toBe('reactjs');
   });
 
-  it('setQuery updates state.filter.query', () => {
+  it('setQuery updates state.query', () => {
     // Arrange
     const initial = filterReducer(undefined, { type: '@@INIT' });
 
