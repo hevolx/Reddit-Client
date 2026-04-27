@@ -5,7 +5,7 @@ import { SearchInput } from '../../../src/features/search/SearchInput';
 describe('SearchInput', () => {
   it('renders input with placeholder "Search posts..."', () => {
     // Arrange & Act
-    render(<SearchInput onChange={() => {}} />);
+    render(<SearchInput onChange={() => {}} value="" />);
 
     // Assert
     expect(screen.getByPlaceholderText('Search posts...')).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe('SearchInput', () => {
     // Arrange
     vi.useFakeTimers();
     const onChange = vi.fn();
-    render(<SearchInput onChange={onChange} />);
+    render(<SearchInput onChange={onChange} value="" />);
     const input = screen.getByPlaceholderText('Search posts...');
 
     // Act
@@ -61,7 +61,7 @@ describe('SearchInput', () => {
     // Arrange
     vi.useFakeTimers();
     const onChange = vi.fn();
-    render(<SearchInput onChange={onChange} />);
+    render(<SearchInput onChange={onChange} value="" />);
 
     // Act
     fireEvent.change(screen.getByPlaceholderText('Search posts...'), {

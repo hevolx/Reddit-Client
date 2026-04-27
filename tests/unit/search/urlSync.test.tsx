@@ -10,10 +10,6 @@ function makeStore() {
   return configureStore({ reducer: { filter: filterReducer } });
 }
 
-function wrapper({ children }: { children: React.ReactNode }) {
-  return createElement(Provider, { store: makeStore() }, children);
-}
-
 describe('useUrlSync', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/');
@@ -23,7 +19,7 @@ describe('useUrlSync', () => {
     // Arrange
     const store = makeStore();
     const storeWrapper = ({ children }: { children: React.ReactNode }) =>
-      createElement(Provider, { store }, children);
+      createElement(Provider, { store, children });
     renderHook(() => useUrlSync(), { wrapper: storeWrapper });
 
     // Act
@@ -40,7 +36,7 @@ describe('useUrlSync', () => {
     window.history.replaceState({}, '', '/?subreddit=reactjs');
     const store = makeStore();
     const storeWrapper = ({ children }: { children: React.ReactNode }) =>
-      createElement(Provider, { store }, children);
+      createElement(Provider, { store, children });
 
     // Act
     renderHook(() => useUrlSync(), { wrapper: storeWrapper });
@@ -53,7 +49,7 @@ describe('useUrlSync', () => {
     // Arrange
     const store = makeStore();
     const storeWrapper = ({ children }: { children: React.ReactNode }) =>
-      createElement(Provider, { store }, children);
+      createElement(Provider, { store, children });
     renderHook(() => useUrlSync(), { wrapper: storeWrapper });
 
     // Act
@@ -70,7 +66,7 @@ describe('useUrlSync', () => {
     window.history.replaceState({}, '', '/?q=redux');
     const store = makeStore();
     const storeWrapper = ({ children }: { children: React.ReactNode }) =>
-      createElement(Provider, { store }, children);
+      createElement(Provider, { store, children });
 
     // Act
     renderHook(() => useUrlSync(), { wrapper: storeWrapper });

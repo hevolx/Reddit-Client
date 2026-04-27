@@ -12,6 +12,7 @@ const makePost = (overrides = {}) => ({
   createdUtc: 1700000000,
   thumbnail: '',
   permalink: '/r/test/comments/abc123',
+  subreddit: 'test',
   ...overrides,
 });
 
