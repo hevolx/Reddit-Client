@@ -10,9 +10,11 @@ interface RedditChild {
     created_utc: number;
     thumbnail: string;
     permalink: string;
+    subreddit: string;
   };
 }
 
+/** Normalised representation of a Reddit post. */
 export interface Post {
   id: string;
   title: string;
@@ -22,6 +24,7 @@ export interface Post {
   createdUtc: number;
   thumbnail: string;
   permalink: string;
+  subreddit: string;
 }
 
 interface PostsState {
@@ -36,6 +39,7 @@ const initialState: PostsState = {
   error: null
 }
 
+/** Fetches the top posts for a given subreddit from the Reddit JSON API. */
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (subreddit: string) => {
@@ -51,7 +55,8 @@ export const fetchPosts = createAsyncThunk(
         numComments: child.data.num_comments,
         createdUtc: child.data.created_utc,
         thumbnail: child.data.thumbnail,
-        permalink: child.data.permalink
+        permalink: child.data.permalink,
+        subreddit: child.data.subreddit
       }));
     } else {
       throw new Error(`HTTP error ${response.status}`);

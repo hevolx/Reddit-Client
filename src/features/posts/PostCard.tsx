@@ -10,16 +10,17 @@ type PostCardProps = {
 const isValidImageUrl = (url: string) =>
   url.startsWith('http://') || url.startsWith('https://');
 
+/** Displays a single Reddit post with title, author, score, comment count, age, and optional thumbnail. */
 export const PostCard = (_props: PostCardProps) => {
   const showThumbnail =
+    !!_props.post.thumbnail &&
     _props.post.thumbnail !== 'self' &&
     _props.post.thumbnail !== 'default' &&
-    _props.post.thumbnail !== '' &&
     isValidImageUrl(_props.post.thumbnail);
 
   return (
     <>
-      <h1>{_props.post.title}</h1>
+      <h2>{_props.post.title}</h2>
       <p data-testid="post-author">Posted by {_props.post.author}</p>
       <p data-testid="post-score">{formatScore(_props.post.score)}</p>
       <p data-testid="post-comment-count">{_props.post.numComments}</p>

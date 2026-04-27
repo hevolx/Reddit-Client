@@ -1,3 +1,4 @@
+/** Root application component. Renders the top-level layout. */
 function App() {
   return (
     <div>

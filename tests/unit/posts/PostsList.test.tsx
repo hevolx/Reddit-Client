@@ -22,8 +22,8 @@ describe('PostsList', () => {
   it('renders post titles when posts are provided', () => {
     // Arrange
     const posts = [
-      { id: '1', title: 'First post', author: 'alice', score: 10, numComments: 2, createdUtc: 0, thumbnail: '', permalink: '/r/test/1' },
-      { id: '2', title: 'Second post', author: 'bob', score: 5, numComments: 0, createdUtc: 0, thumbnail: '', permalink: '/r/test/2' },
+      { id: '1', title: 'First post', author: 'alice', score: 10, numComments: 2, createdUtc: 0, thumbnail: '', permalink: '/r/test/1', subreddit: 'test' },
+      { id: '2', title: 'Second post', author: 'bob', score: 5, numComments: 0, createdUtc: 0, thumbnail: '', permalink: '/r/test/2', subreddit: 'test' },
     ];
 
     // Act
@@ -42,9 +42,9 @@ describe('PostsList', () => {
     expect(screen.getByTestId('posts-error')).toBeInTheDocument();
   });
 
-  it('renders a "Try again" button when status is failed', () => {
+  it('renders a "Try again" button when status is failed and onRetry is provided', () => {
     // Act
-    render(<PostsList posts={[]} status="failed" error="Something went wrong" />);
+    render(<PostsList posts={[]} status="failed" error="Something went wrong" onRetry={() => {}} />);
 
     // Assert
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument();
