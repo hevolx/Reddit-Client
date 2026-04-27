@@ -33,6 +33,22 @@ describe('SearchInput', () => {
     vi.useRealTimers();
   });
 
+  it('clicking "Clear" calls onChange with empty string', () => {
+    // Arrange
+    vi.useFakeTimers();
+    const onChange = vi.fn();
+    render(<SearchInput onChange={onChange} value="hello" />);
+
+    // Act
+    fireEvent.click(screen.getByTestId('search-clear-button'));
+    vi.advanceTimersByTime(300);
+
+    // Assert
+    expect(onChange).toHaveBeenCalledWith('');
+
+    vi.useRealTimers();
+  });
+
   it('shows "Clear" button when input has value', () => {
     // Arrange & Act
     render(<SearchInput onChange={() => {}} value="hello" />);

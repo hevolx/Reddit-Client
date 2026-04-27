@@ -8,7 +8,7 @@ export function SearchInput(_props: { onChange: (value: string) => void, value: 
         clearTimeout(timerId.current);
         timerId.current = setTimeout(() => _props.onChange(e.target.value), 300);
       }}></input>
-      {_props.value && <button data-testid="search-clear-button" />}
+      {_props.value && <button data-testid="search-clear-button" onClick={() => _props.onChange('')} />}
     </>
   );
 }
