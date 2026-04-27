@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { SearchInput } from '../../../src/features/search/SearchInput';
 
 describe('SearchInput', () => {
@@ -9,5 +9,19 @@ describe('SearchInput', () => {
 
     // Assert
     expect(screen.getByPlaceholderText('Search posts...')).toBeInTheDocument();
+  });
+
+  it('calls onChange with input value', () => {
+    // Arrange
+    const onChange = vi.fn();
+    render(<SearchInput onChange={onChange} />);
+
+    // Act
+    fireEvent.change(screen.getByPlaceholderText('Search posts...'), {
+      target: { value: 'hello' },
+    });
+
+    // Assert
+    expect(onChange).toHaveBeenCalledWith('hello');
   });
 });
