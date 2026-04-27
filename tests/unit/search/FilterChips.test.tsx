@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { FilterChips } from '../../../src/features/search/FilterChips';
 
 const categories = [
@@ -9,6 +9,18 @@ const categories = [
 ];
 
 describe('FilterChips', () => {
+  it('clicking inactive chip calls onSelect with category id', () => {
+    // Arrange
+    const onSelect = vi.fn();
+    render(<FilterChips categories={categories} activeId="typescript" onSelect={onSelect} />);
+
+    // Act
+    fireEvent.click(screen.getByText('React'));
+
+    // Assert
+    expect(onSelect).toHaveBeenCalledWith('reactjs');
+  });
+
   it('active chip has aria-pressed "true"', () => {
     // Arrange & Act
     render(<FilterChips categories={categories} activeId="typescript" onSelect={() => { }} />);
