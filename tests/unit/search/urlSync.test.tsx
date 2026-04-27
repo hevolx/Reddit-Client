@@ -3,7 +3,7 @@ import { renderHook, act } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { createElement } from 'react';
-import filterReducer, { setQuery } from '../../../src/features/search/filterSlice';
+import filterReducer, { setQuery, setCategory } from '../../../src/features/search/filterSlice';
 import { useUrlSync } from '../../../src/features/search/useUrlSync';
 
 function makeStore() {
@@ -17,6 +17,22 @@ function wrapper({ children }: { children: React.ReactNode }) {
 describe('useUrlSync', () => {
   beforeEach(() => {
     window.history.replaceState({}, '', '/');
+  });
+
+  it('updates URL when category changes', () => {
+    // Arrange
+    const store = makeStore();
+    const storeWrapper = ({ children }: { children: React.ReactNode }) =>
+      createElement(Provider, { store }, children);
+    renderHook(() => useUrlSync(), { wrapper: storeWrapper });
+
+    // Act
+    act(() => {
+      store.dispatch(setCategory('reactjs'));
+    });
+
+    // Assert
+    expect(window.location.search).toContain('subreddit=reactjs');
   });
 
   it('reads ?subreddit= param into state on mount', () => {
