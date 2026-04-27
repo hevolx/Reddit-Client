@@ -33,6 +33,14 @@ describe('SearchInput', () => {
     vi.useRealTimers();
   });
 
+  it('shows "Clear" button when input has value', () => {
+    // Arrange & Act
+    render(<SearchInput onChange={() => {}} value="hello" />);
+
+    // Assert
+    expect(screen.getByTestId('search-clear-button')).toBeInTheDocument();
+  });
+
   it('calls onChange with input value', () => {
     // Arrange
     vi.useFakeTimers();
