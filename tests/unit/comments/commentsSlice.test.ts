@@ -19,4 +19,10 @@ describe('commentsSlice', () => {
 
     expect(state.error).toBeNull()
   })
+
+  it('fetchComments.pending sets status to loading', () => {
+    const state = commentsReducer(undefined, { type: 'comments/fetchComments/pending' })
+
+    expect(state.status).toBe('loading')
+  })
 })
