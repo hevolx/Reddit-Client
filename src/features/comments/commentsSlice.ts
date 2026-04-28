@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 interface CommentsState {
-  commentsByPostId: {};
-  status: string;
+  commentsByPostId: Record<string, {}[]>;
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
 
@@ -12,10 +12,16 @@ const initialState: CommentsState = {
   error: null,
 }
 
+type CommentState = {
+  postId: string;
+  comments: {}[];
+};
+
+
 export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
-  async () => {
-    return 'comments/fetchComments/pending'
+  async (comment: CommentState) => {
+    return { postId: comment.postId, comments: comment.comments }
   }
 );
 
@@ -27,6 +33,10 @@ const commentsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchComments.pending, (state) => {
       state.status = 'loading';
+    });
+    builder.addCase(fetchComments.fulfilled, (state, action) => {
+      state.status = 'succeeded';
+      state.commentsByPostId[action.payload.postId] = action.payload.comments;
     });
   }
 });

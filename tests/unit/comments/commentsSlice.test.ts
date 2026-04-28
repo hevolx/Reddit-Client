@@ -25,4 +25,16 @@ describe('commentsSlice', () => {
 
     expect(state.status).toBe('loading')
   })
+
+  it('fetchComments.fulfilled stores comments under payload.postId', () => {
+    const comments = [{ id: 'c1', body: 'Hello' }]
+    const action = {
+      type: 'comments/fetchComments/fulfilled',
+      payload: { postId: 'post123', comments },
+    }
+
+    const state = commentsReducer(undefined, action)
+
+    expect(state.commentsByPostId['post123']).toEqual(comments)
+  })
 })
