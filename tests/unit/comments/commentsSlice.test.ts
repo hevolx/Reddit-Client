@@ -13,4 +13,10 @@ describe('commentsSlice', () => {
 
     expect(state.status).toBe('idle')
   })
+
+  it('initial state error is null', () => {
+    const state = commentsReducer(undefined, { type: '@@INIT' })
+
+    expect(state.error).toBeNull()
+  })
 })

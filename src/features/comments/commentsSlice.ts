@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface CommentsState {
-  status: string;
   commentsByPostId: {};
+  status: string;
+  error: string | null;
 }
 
 const initialState: CommentsState = {
   status: 'idle',
   commentsByPostId: {},
+  error: null,
 }
 
 const commentsSlice = createSlice({

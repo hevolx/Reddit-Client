@@ -26,6 +26,7 @@ yarn-error.log*
 
 # agnets
 /agent
+/memory
 
 # TODO
 /todo
