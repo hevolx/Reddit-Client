@@ -7,4 +7,10 @@ describe('commentsSlice', () => {
 
     expect(state.commentsByPostId).toEqual({})
   })
+
+  it('initial state status is idle', () => {
+    const state = commentsReducer(undefined, { type: '@@INIT' })
+
+    expect(state.status).toBe('idle')
+  })
 })
