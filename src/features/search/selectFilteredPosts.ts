@@ -11,7 +11,5 @@ export function selectFilteredPosts(state: {
     const category = state.filter.category?.toLowerCase();
 
     return (!category || post.subreddit.toLowerCase() === category) && title.includes(query);
-
-
   });
 }
