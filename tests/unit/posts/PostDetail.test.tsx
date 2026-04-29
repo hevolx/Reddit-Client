@@ -71,4 +71,19 @@ describe('PostDetail', () => {
     // Assert
     expect(screen.getByTestId('comments-empty')).toHaveTextContent('No comments yet')
   })
+
+  it('renders one Comment per comment in the list', () => {
+    // Arrange
+    const post = makePost()
+    const comments = [
+      { id: '1', author: 'alice', body: 'First comment', score: 10 },
+      { id: '2', author: 'bob', body: 'Second comment', score: 5 },
+    ]
+
+    // Act
+    render(<PostDetail post={post} status="succeeded" comments={comments} />)
+
+    // Assert
+    expect(screen.getAllByTestId('comment')).toHaveLength(2)
+  })
 })

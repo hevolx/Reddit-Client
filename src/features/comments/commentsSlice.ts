@@ -21,7 +21,7 @@ interface CommentsChild {
   };
 }
 
-interface Comments {
+export interface Comments {
   id: string,
   author: string,
   body: string,
