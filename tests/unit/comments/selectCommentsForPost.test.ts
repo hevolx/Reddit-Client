@@ -2,6 +2,23 @@ import { describe, it, expect } from 'vitest'
 import { selectCommentsForPost } from '../../../src/features/comments/commentsSlice'
 
 describe('selectCommentsForPost', () => {
+  it('returns empty array when post is missing in state', () => {
+    // Arrange
+    const state = {
+      comments: {
+        commentsByPostId: {},
+        status: 'idle' as const,
+        error: null,
+      },
+    }
+
+    // Act
+    const result = selectCommentsForPost(state, 'nonexistent')
+
+    // Assert
+    expect(result).toEqual([])
+  })
+
   it('returns comment array for given postId', () => {
     // Arrange
     const comments = [

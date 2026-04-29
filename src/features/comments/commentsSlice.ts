@@ -7,8 +7,8 @@ interface CommentsState {
 }
 
 const initialState: CommentsState = {
-  status: 'idle',
   commentsByPostId: {},
+  status: 'idle',
   error: null,
 }
 
@@ -58,7 +58,7 @@ export const fetchComments = createAsyncThunk(
 export function selectCommentsForPost(state: {
   comments: { comments: CommentsState };
 }, postId: string) {
-  return state.comments.commentsByPostId[postId]
+  return state.comments.commentsByPostId[postId] ?? []
 }
 
 const commentsSlice = createSlice({
