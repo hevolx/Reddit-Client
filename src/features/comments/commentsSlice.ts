@@ -37,17 +37,21 @@ export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
   async (arg: FetchCommentsArg) => {
     const response = await fetch(`https://www.reddit.com${arg.permalink.replace(/\/$/, '')}.json`);
-    const data = await response.json();
-    const children = data[1].data.children;
-
-    const comments = children.map((child: CommentsChild): Comments => ({
-      id: child.data.id,
-      author: child.data.author,
-      body: child.data.body,
-      score: child.data.score
-    }));
-
-    return { postId: arg.postId, comments: comments }
+    if (response.ok) {
+      const data = await response.json();
+      const children = data[1].data.children;
+      const comments = children
+        .filter((child: CommentsChild) => child.data.author !== 'AutoModerator')
+        .map((child: CommentsChild): Comments => ({
+          id: child.data.id,
+          author: child.data.author,
+          body: child.data.body,
+          score: child.data.score
+        }));
+      return { postId: arg.postId, comments: comments }
+    } else {
+      throw new Error(`HTTP error ${response.status}`);
+    }
   }
 );
 

@@ -29,6 +29,39 @@ describe('fetchComments', () => {
     )
   })
 
+  it('filters out AutoModerator comments', async () => {
+    // Arrange
+    const mockResponse = {
+      ok: true,
+      json: vi.fn().mockResolvedValue([
+        {},
+        {
+          data: {
+            children: [
+              { kind: 't1', data: { id: 'c1', author: 'someuser', body: 'Real comment', score: 5 } },
+              { kind: 't1', data: { id: 'c2', author: 'AutoModerator', body: 'Auto reply', score: 1 } },
+            ],
+          },
+        },
+      ]),
+    }
+    ;(fetch as ReturnType<typeof vi.fn>).mockResolvedValue(mockResponse)
+    const dispatch = vi.fn()
+    const getState = vi.fn()
+
+    // Act
+    const result = await fetchComments({ postId: 'abc123', permalink: '/r/reactjs/comments/abc123/test/' })(
+      dispatch,
+      getState,
+      undefined,
+    )
+
+    // Assert
+    expect((result as { payload: { comments: unknown[] } }).payload.comments).toEqual([
+      { id: 'c1', author: 'someuser', body: 'Real comment', score: 5 },
+    ])
+  })
+
   it('maps response to expected comment object shape', async () => {
     // Arrange
     const mockResponse = {
