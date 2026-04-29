@@ -27,4 +27,15 @@ describe('PostDetail', () => {
     // Assert
     expect(screen.getByRole('heading', { name: 'My interesting post' })).toBeInTheDocument()
   })
+
+  it('renders post.selftext when present', () => {
+    // Arrange
+    const post = makePost({ selftext: 'This is the body of the post.' })
+
+    // Act
+    render(<PostDetail post={post} />)
+
+    // Assert
+    expect(screen.getByTestId('post-selftext')).toHaveTextContent('This is the body of the post.')
+  })
 })
