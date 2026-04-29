@@ -12,16 +12,19 @@ const initialState: CommentsState = {
   error: null,
 }
 
-type CommentState = {
+type FetchCommentsArg = {
   postId: string;
-  comments: {}[];
+  permalink: string;
 };
 
 
 export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
-  async (comment: CommentState) => {
-    return { postId: comment.postId, comments: comment.comments }
+  async (arg: FetchCommentsArg) => {
+    const response = await fetch(`https://www.reddit.com${arg.permalink.replace(/\/$/, '')}.json`);
+    const data = await response.json();
+
+    return { postId: data.postId, comments: data.comments }
   }
 );
 
