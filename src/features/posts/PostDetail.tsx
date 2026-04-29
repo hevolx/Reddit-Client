@@ -3,20 +3,25 @@ import { Post } from './postsSlice'
 type PostDetailProps = {
   post: Post;
   status: string;
+  comments?: [];
 };
 
-export const PostDetail = (_props: PostDetailProps) => {
-  const showSelftext = !!_props.post.selftext;
+export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
+  const showSelftext = !!post.selftext;
   const showStatus = "loading";
+
   return (
     <>
-      <h1>{_props.post.title}</h1>
+      <h1>{post.title}</h1>
       {showSelftext
-        ? <p data-testid="post-selftext">{_props.post.selftext}</p>
+        ? <p data-testid="post-selftext">{post.selftext}</p>
         : null}
-      {showStatus == _props.status
+      {showStatus == status
         ? <p data-testid="comments-loading">Loading comments...</p>
         : null}
+      {comments?.length == 0
+        ? <p data-testid="comments-empty">No comments yet</p>
+        : comments}
     </>
   )
 }

@@ -60,4 +60,15 @@ describe('PostDetail', () => {
     // Assert
     expect(screen.getByTestId('comments-loading')).toHaveTextContent('Loading comments...')
   })
+
+  it('shows "No comments yet" when comments array is empty', () => {
+    // Arrange
+    const post = makePost()
+
+    // Act
+    render(<PostDetail post={post} status="succeeded" comments={[]} />)
+
+    // Assert
+    expect(screen.getByTestId('comments-empty')).toHaveTextContent('No comments yet')
+  })
 })
