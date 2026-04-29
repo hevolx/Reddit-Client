@@ -38,6 +38,10 @@ const commentsSlice = createSlice({
       state.status = 'succeeded';
       state.commentsByPostId[action.payload.postId] = action.payload.comments;
     });
+    builder.addCase(fetchComments.rejected, (state, action) => {
+      state.status = 'failed';
+      state.error = action.error.message ?? 'Unknown error';
+    });
   }
 });
 

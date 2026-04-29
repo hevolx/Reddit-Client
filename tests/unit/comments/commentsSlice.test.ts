@@ -37,4 +37,15 @@ describe('commentsSlice', () => {
 
     expect(state.commentsByPostId['post123']).toEqual(comments)
   })
+
+  it('fetchComments.rejected stores error message', () => {
+    const action = {
+      type: 'comments/fetchComments/rejected',
+      error: { message: 'Network error' },
+    }
+
+    const state = commentsReducer(undefined, action)
+
+    expect(state.error).toBe('Network error')
+  })
 })
