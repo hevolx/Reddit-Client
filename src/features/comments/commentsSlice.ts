@@ -12,19 +12,42 @@ const initialState: CommentsState = {
   error: null,
 }
 
+interface CommentsChild {
+  data: {
+    id: string,
+    author: string,
+    body: string,
+    score: number,
+  };
+}
+
+interface Comments {
+  id: string,
+  author: string,
+  body: string,
+  score: number,
+}
+
 type FetchCommentsArg = {
   postId: string;
   permalink: string;
-};
-
+}
 
 export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
   async (arg: FetchCommentsArg) => {
     const response = await fetch(`https://www.reddit.com${arg.permalink.replace(/\/$/, '')}.json`);
     const data = await response.json();
+    const children = data[1].data.children;
 
-    return { postId: data.postId, comments: data.comments }
+    const comments = children.map((child: CommentsChild): Comments => ({
+      id: child.data.id,
+      author: child.data.author,
+      body: child.data.body,
+      score: child.data.score
+    }));
+
+    return { postId: arg.postId, comments: comments }
   }
 );
 
