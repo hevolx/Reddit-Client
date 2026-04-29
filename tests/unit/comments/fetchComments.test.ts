@@ -101,4 +101,37 @@ describe('fetchComments', () => {
       { id: 'xyz789', author: 'someuser', body: 'This is a comment', score: 42 },
     ])
   })
+
+  it('returns object with postId and comments', async () => {
+    // Arrange
+    const mockResponse = {
+      ok: true,
+      json: vi.fn().mockResolvedValue([
+        {},
+        {
+          data: {
+            children: [
+              { kind: 't1', data: { id: 'c1', author: 'someuser', body: 'Hello', score: 3 } },
+            ],
+          },
+        },
+      ]),
+    }
+    ;(fetch as ReturnType<typeof vi.fn>).mockResolvedValue(mockResponse)
+    const dispatch = vi.fn()
+    const getState = vi.fn()
+
+    // Act
+    const result = await fetchComments({ postId: 'post99', permalink: '/r/reactjs/comments/post99/test/' })(
+      dispatch,
+      getState,
+      undefined,
+    )
+
+    // Assert
+    expect((result as { payload: unknown }).payload).toEqual({
+      postId: 'post99',
+      comments: [{ id: 'c1', author: 'someuser', body: 'Hello', score: 3 }],
+    })
+  })
 })

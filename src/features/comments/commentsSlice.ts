@@ -55,6 +55,11 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+export function selectCommentsForPost(state: {
+  comments: { comments: CommentsState };
+}, postId: string) {
+  return state.comments.commentsByPostId[postId]
+}
 
 const commentsSlice = createSlice({
   name: 'comments',
