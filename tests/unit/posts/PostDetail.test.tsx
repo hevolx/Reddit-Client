@@ -38,4 +38,15 @@ describe('PostDetail', () => {
     // Assert
     expect(screen.getByTestId('post-selftext')).toHaveTextContent('This is the body of the post.')
   })
+
+  it('renders no body element when selftext is empty', () => {
+    // Arrange
+    const post = makePost({ selftext: '' })
+
+    // Act
+    render(<PostDetail post={post} />)
+
+    // Assert
+    expect(screen.queryByTestId('post-selftext')).not.toBeInTheDocument()
+  })
 })
