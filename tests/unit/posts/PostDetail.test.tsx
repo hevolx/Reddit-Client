@@ -49,4 +49,15 @@ describe('PostDetail', () => {
     // Assert
     expect(screen.queryByTestId('post-selftext')).not.toBeInTheDocument()
   })
+
+  it('shows "Loading comments..." when status is loading', () => {
+    // Arrange
+    const post = makePost()
+
+    // Act
+    render(<PostDetail post={post} status="loading" />)
+
+    // Assert
+    expect(screen.getByTestId('comments-loading')).toHaveTextContent('Loading comments...')
+  })
 })
