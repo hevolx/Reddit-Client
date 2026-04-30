@@ -1,9 +1,16 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import ErrorBoundary from "../../../src/components/ErrorBoundary";
 
 function Bomb(): never {
   throw new Error("boom");
+}
+
+let shouldRecover = false;
+function RecoveringBomb() {
+  if (!shouldRecover) throw new Error("boom");
+  return <p data-testid="recovered">recovered</p>;
 }
 
 describe("ErrorBoundary", () => {
@@ -43,5 +50,19 @@ describe("ErrorBoundary", () => {
     );
 
     expect(console.error).toHaveBeenCalled();
+  });
+
+  it("resets the error state when Try again is clicked", async () => {
+    shouldRecover = false;
+    render(
+      <ErrorBoundary>
+        <RecoveringBomb />
+      </ErrorBoundary>
+    );
+
+    shouldRecover = true;
+    await userEvent.click(screen.getByRole("button", { name: /try again/i }));
+
+    expect(screen.queryByTestId("error-fallback")).not.toBeInTheDocument();
   });
 });

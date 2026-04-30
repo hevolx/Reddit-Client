@@ -19,7 +19,11 @@ export default class ErrorBoundary extends Component<Props, State> {
   }
   render() {
     if (this.state.hasError) {
-      return <div data-testid="error-fallback"></div>
+      return (
+        <div data-testid="error-fallback">
+          <button onClick={() => this.setState({ hasError: false })}>Try again</button>
+        </div>
+      )
     }
     return this.props.children;
   };
