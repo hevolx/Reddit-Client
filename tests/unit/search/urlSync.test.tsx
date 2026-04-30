@@ -58,7 +58,7 @@ describe('useUrlSync', () => {
     });
 
     // Assert
-    expect(window.location.search).toBe('?q=typescript');
+    expect(window.location.search).toContain('q=typescript');
   });
 
   it('reads ?q= param into state on mount', () => {

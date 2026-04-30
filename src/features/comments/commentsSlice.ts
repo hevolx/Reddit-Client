@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+/** Represents a single Reddit comment with author, body, and vote score. */
 export interface Comments {
   id: string,
   author: string,
@@ -57,7 +58,7 @@ export const fetchComments = createAsyncThunk(
           id: child.data.id,
           author: child.data.author,
           body: child.data.body,
-          score: child.data.score
+          score: child.data.score ?? 0
         }));
       return { postId: arg.postId, comments: comments }
     } else {

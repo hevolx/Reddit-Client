@@ -10,7 +10,7 @@ type PostDetailProps = {
 /** Renders the full detail view for a post, including its body text and loaded comments. */
 export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
   const showSelftext = !!post.selftext;
-  const showStatus = "loading";
+  const LOADING_STATUS = "loading";
 
   return (
     <>
@@ -18,11 +18,11 @@ export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
       {showSelftext
         ? <p data-testid="post-selftext">{post.selftext}</p>
         : null}
-      {showStatus === status
+      {LOADING_STATUS === status
         ? <p data-testid="comments-loading">Loading comments...</p>
         : status === 'failed'
           ? <p data-testid="comments-error">Failed to load comments</p>
-          : comments?.length === 0
+          : (comments?.length ?? 0) === 0
             ? <p data-testid="comments-empty">No comments yet</p>
             : comments?.map((comment) => {
               return (

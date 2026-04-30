@@ -11,19 +11,23 @@ export function useUrlSync() {
   const query = useSelector((state: { filter: { query: string } }) => state.filter.query);
   const category = useSelector((state: { filter: { category: string | null } }) => state.filter.category);
   const dispatch = useDispatch();
-  const isMounted = useRef(false);
+  const isInitializing = useRef(true);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const searchParams = new URLSearchParams(window.location.search);
     const q = searchParams.get('q') ?? '';
     const subreddit = searchParams.get('subreddit');
     dispatch(setQuery(q));
     dispatch(setCategory(subreddit && subreddit.length > 0 ? subreddit : null));
-    isMounted.current = true;
   }, [dispatch]);
 
   useEffect(() => {
-    if (!isMounted.current) return;
+    if (isInitializing.current) {
+      isInitializing.current = false;
+      return;
+    }
+    if (typeof window === 'undefined') return;
     const searchParams = new URLSearchParams(window.location.search);
     if (query) {
       searchParams.set('q', query);
