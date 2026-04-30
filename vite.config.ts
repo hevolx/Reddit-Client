@@ -5,6 +5,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/projects/reddit/',
+  server: {
+    proxy: {
+      '/api/reddit': {
+        target: 'https://www.reddit.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/reddit/, ''),
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
