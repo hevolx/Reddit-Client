@@ -1,9 +1,19 @@
+import { FilterChips } from './features/search/FilterChips'
 /** Root application component. Renders the top-level layout. */
 function App() {
   return (
-    <div>
-      <h1>Reddit Client</h1>
-    </div>
+    <>
+      <header role="banner">
+        <h1>Reddit Client</h1>
+        <search role="searchbox" />
+      </header>
+      <div data-testid="filter-chips">
+        <FilterChips
+          categories={[]}
+          activeId={null}
+          onSelect={() => { }} />
+      </div>
+    </>
   );
 }
 
