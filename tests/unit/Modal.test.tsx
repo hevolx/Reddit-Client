@@ -43,4 +43,16 @@ describe('Modal', () => {
     // Assert
     expect(onClose).toHaveBeenCalledOnce()
   })
+
+  it('backdrop click calls onClose', async () => {
+    // Arrange
+    const onClose = vi.fn()
+    render(<Modal onClose={onClose}>Content</Modal>)
+
+    // Act
+    await userEvent.click(screen.getByTestId('modal-backdrop'))
+
+    // Assert
+    expect(onClose).toHaveBeenCalledOnce()
+  })
 })

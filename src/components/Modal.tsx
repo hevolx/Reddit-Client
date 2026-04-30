@@ -14,8 +14,13 @@ export const Modal = (props: ModalProps) => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, []);
   return (
-    <dialog open aria-modal="true" tabIndex={-1}>
-      <button data-testid="modal-close" onClick={props.onClose}>Close</button>
-    </dialog>
+    <div data-testid="modal-backdrop" onClick={props.onClose}>
+      <dialog open aria-modal="true" tabIndex={-1}>
+        <button data-testid="modal-close" onClick={(e) => {
+          e.stopPropagation()
+          props.onClose()
+        }}>Close</button>
+      </dialog>
+    </div>
   );
 }
