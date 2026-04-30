@@ -67,4 +67,12 @@ describe('Modal', () => {
     // Assert
     expect(onClose).not.toHaveBeenCalled()
   })
+
+  it('sets focus on first focusable element on open', () => {
+    // Arrange & Act
+    render(<Modal onClose={vi.fn()}>Content</Modal>)
+
+    // Assert
+    expect(screen.getByTestId('modal-close')).toHaveFocus()
+  })
 })
