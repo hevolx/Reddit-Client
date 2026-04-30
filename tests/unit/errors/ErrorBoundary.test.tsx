@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import ErrorBoundary from "../../../src/components/ErrorBoundary";
 
 function Bomb(): never {
@@ -9,6 +9,10 @@ function Bomb(): never {
 describe("ErrorBoundary", () => {
   beforeEach(() => {
     vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("renders children when no error is thrown", () => {
@@ -29,5 +33,15 @@ describe("ErrorBoundary", () => {
     );
 
     expect(screen.getByTestId("error-fallback")).toBeInTheDocument();
+  });
+
+  it("logs the error to console.error", () => {
+    render(
+      <ErrorBoundary>
+        <Bomb />
+      </ErrorBoundary>
+    );
+
+    expect(console.error).toHaveBeenCalled();
   });
 });
