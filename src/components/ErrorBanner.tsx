@@ -1,6 +1,6 @@
 type ErrorProps = {
   message: string;
-  onRetry: () => void;
+  onRetry?: () => void;
 };
 
 export default function ErrorBanner({ message, onRetry }: ErrorProps) {

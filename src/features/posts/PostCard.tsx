@@ -29,12 +29,13 @@ export const PostCard = (_props: PostCardProps) => {
         ? <img data-testid="post-thumbnail" src={_props.post.thumbnail} alt="" />
         : null}
       <button
+        type="button"
         data-testid="post-card"
         aria-label={`Open post: ${_props.post.title || _props.post.id}`}
         onClick={() => _props.onSelect?.(_props.post)}
       />
-      <button aria-label="Upvote"></button>
-      <button aria-label="Downvote"></button>
+      <button type="button" aria-label="Upvote" onClick={() => {}}></button>
+      <button type="button" aria-label="Downvote" onClick={() => {}}></button>
     </>
   );
 };

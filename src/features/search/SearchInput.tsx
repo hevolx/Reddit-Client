@@ -19,7 +19,7 @@ export function SearchInput({ onChange, value }: {
 
   return (
     <>
-      <input placeholder="Search posts..." value={internalValue} onChange={(e) => {
+      <input type="search" aria-label="Search posts" placeholder="Search posts..." value={internalValue} onChange={(e) => {
         const val = e.target.value;
         setInternalValue(val);
         clearTimeout(timerId.current);

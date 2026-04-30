@@ -7,11 +7,13 @@
  * @returns A compact string representation (`"x.xM"`, `"x.xk"`, or the plain number as a string)
  */
 export function formatScore(score: number) {
-  if (score >= 1000000) {
-    return (score / 1000000).toFixed(1) + 'M';
+  const abs = Math.abs(score);
+  const sign = score < 0 ? '-' : '';
+  if (abs >= 1000000) {
+    return sign + (abs / 1000000).toFixed(1) + 'M';
   }
-  if (score >= 1000) {
-    return (score / 1000).toFixed(1) + 'k';
+  if (abs >= 1000) {
+    return sign + (abs / 1000).toFixed(1) + 'k';
   }
-  return score.toString();
+  return sign + abs.toString();
 }
