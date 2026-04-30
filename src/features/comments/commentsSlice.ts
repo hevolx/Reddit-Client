@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+/** Represents a single Reddit comment with author, body, and vote score. */
 export interface Comments {
   id: string,
   author: string,

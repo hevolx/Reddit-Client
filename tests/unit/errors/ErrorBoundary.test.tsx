@@ -15,7 +15,8 @@ function RecoveringBomb() {
 
 describe("ErrorBoundary", () => {
   beforeEach(() => {
-    vi.spyOn(console, "error").mockImplementation(() => {});
+    shouldRecover = false;
+    vi.spyOn(console, "error").mockImplementation(() => { });
   });
 
   afterEach(() => {
@@ -59,10 +60,9 @@ describe("ErrorBoundary", () => {
         <RecoveringBomb />
       </ErrorBoundary>
     );
-
     shouldRecover = true;
     await userEvent.click(screen.getByRole("button", { name: /try again/i }));
-
     expect(screen.queryByTestId("error-fallback")).not.toBeInTheDocument();
+    expect(screen.getByTestId("recovered")).toBeInTheDocument();
   });
 });

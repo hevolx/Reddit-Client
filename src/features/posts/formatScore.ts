@@ -13,7 +13,11 @@ export function formatScore(score: number) {
     return sign + (abs / 1000000).toFixed(1) + 'M';
   }
   if (abs >= 1000) {
-    return sign + (abs / 1000).toFixed(1) + 'k';
+    const k = Number((abs / 1000).toFixed(1));
+    if (k >= 1000) {
+      return sign + '1.0M';
+    }
+    return sign + k.toFixed(1) + 'k';
   }
   return sign + abs.toString();
 }

@@ -5,6 +5,8 @@ import { formatRelativeTime } from './formatRelativeTime';
 type PostCardProps = {
   post: Post;
   onSelect?: (post: Post) => void;
+  onUpvote?: (post: Post) => void;
+  onDownvote?: (post: Post) => void;
 };
 
 const isValidImageUrl = (url: string) =>
@@ -34,8 +36,18 @@ export const PostCard = (_props: PostCardProps) => {
         aria-label={`Open post: ${_props.post.title || _props.post.id}`}
         onClick={() => _props.onSelect?.(_props.post)}
       />
-      <button type="button" aria-label="Upvote" onClick={() => {}}></button>
-      <button type="button" aria-label="Downvote" onClick={() => {}}></button>
+      <button
+        type="button"
+        aria-label="Upvote"
+        onClick={() => _props.onUpvote?.(_props.post)}
+        disabled={!_props.onUpvote}
+      />
+      <button
+        type="button"
+        aria-label="Downvote"
+        onClick={() => _props.onDownvote?.(_props.post)}
+        disabled={!_props.onDownvote}
+      />
     </>
   );
 };
