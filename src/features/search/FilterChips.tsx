@@ -1,4 +1,3 @@
-/** Renders a row of toggle buttons for selecting a subreddit category filter. */
 export function FilterChips({ categories, activeId, onSelect }: {
   categories: { id: string; label: string }[];
   activeId: string | null;
@@ -10,8 +9,12 @@ export function FilterChips({ categories, activeId, onSelect }: {
         <button
           key={category.id}
           type="button"
+          className="filter-chip"
           aria-pressed={activeId === category.id}
-          onClick={() => onSelect(category.id)}>{category.label}</button>
+          onClick={() => onSelect(category.id)}
+        >
+          {category.label}
+        </button>
       ))}
     </>
   );

@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react';
+
 type ModalProps = {
   onClose: () => void;
   label: string;
@@ -6,7 +7,6 @@ type ModalProps = {
   children?: React.ReactNode;
 };
 
-/** Accessible modal dialog — uses the native `<dialog>` API for focus trapping and background inertness. */
 export const Modal = ({ onClose, label, triggerRef, children }: ModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -18,12 +18,10 @@ export const Modal = ({ onClose, label, triggerRef, children }: ModalProps) => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        handleClose();
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+      if (e.key === 'Escape') handleClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleClose]);
 
   useEffect(() => {
@@ -39,10 +37,15 @@ export const Modal = ({ onClose, label, triggerRef, children }: ModalProps) => {
         aria-modal="true"
         aria-label={label}
         tabIndex={-1}
-        onClick={(e) => { e.stopPropagation() }}>
-        <button data-testid="modal-close" onClick={handleClose} autoFocus>Close</button>
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="modal-header">
+          <button data-testid="modal-close" onClick={handleClose} autoFocus>
+            ✕ Close
+          </button>
+        </div>
         {children}
       </dialog>
     </div>
   );
-}
+};

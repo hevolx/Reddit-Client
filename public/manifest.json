@@ -1,0 +1,24 @@
+{
+  "name": "Reddit Client",
+  "short_name": "Reddit",
+  "description": "A Reddit client built with React, TypeScript, and Redux",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#dae0e6",
+  "theme_color": "#ff4500",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

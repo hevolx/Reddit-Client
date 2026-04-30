@@ -65,7 +65,6 @@ describe('fetchPosts', () => {
         score: 42,
         num_comments: 5,
         created_utc: 1000000,
-        thumbnail: 'https://example.com/thumb.jpg',
         permalink: '/r/reactjs/comments/abc123/test_title/',
       },
     };
@@ -93,7 +92,6 @@ describe('fetchPosts', () => {
         score: 42,
         numComments: 5,
         createdUtc: 1000000,
-        thumbnail: 'https://example.com/thumb.jpg',
         permalink: '/r/reactjs/comments/abc123/test_title/',
       },
     ]);
