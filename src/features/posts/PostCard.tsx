@@ -12,42 +12,77 @@ type PostCardProps = {
 const isValidImageUrl = (url: string) =>
   url.startsWith('http://') || url.startsWith('https://');
 
-/** Displays a single Reddit post with title, author, score, comment count, age, and optional thumbnail. */
-export const PostCard = (_props: PostCardProps) => {
+export const PostCard = ({ post, onSelect, onUpvote, onDownvote }: PostCardProps) => {
   const showThumbnail =
-    !!_props.post.thumbnail &&
-    _props.post.thumbnail !== 'self' &&
-    _props.post.thumbnail !== 'default' &&
-    isValidImageUrl(_props.post.thumbnail);
+    !!post.thumbnail &&
+    post.thumbnail !== 'self' &&
+    post.thumbnail !== 'default' &&
+    isValidImageUrl(post.thumbnail);
 
   return (
-    <>
-      <h2>{_props.post.title}</h2>
-      <p data-testid="post-author">Posted by {_props.post.author}</p>
-      <p data-testid="post-score">{formatScore(_props.post.score)}</p>
-      <p data-testid="post-comment-count">{_props.post.numComments}</p>
-      <p data-testid="post-time">{formatRelativeTime(_props.post.createdUtc)}</p>
-      {showThumbnail
-        ? <img data-testid="post-thumbnail" src={_props.post.thumbnail} alt="" />
-        : null}
-      <button
-        type="button"
-        data-testid="post-card"
-        aria-label={`Open post: ${_props.post.title || _props.post.id}`}
-        onClick={() => _props.onSelect?.(_props.post)}
-      />
-      <button
-        type="button"
-        aria-label="Upvote"
-        onClick={() => _props.onUpvote?.(_props.post)}
-        disabled={!_props.onUpvote}
-      />
-      <button
-        type="button"
-        aria-label="Downvote"
-        onClick={() => _props.onDownvote?.(_props.post)}
-        disabled={!_props.onDownvote}
-      />
-    </>
+    <div className="post-card">
+      <div className="post-vote">
+        <button
+          type="button"
+          className="vote-btn vote-up"
+          aria-label="Upvote"
+          onClick={() => onUpvote?.(post)}
+          disabled={!onUpvote}
+        >
+          ▲
+        </button>
+        <span className="vote-score" data-testid="post-score">
+          {formatScore(post.score)}
+        </span>
+        <button
+          type="button"
+          className="vote-btn vote-down"
+          aria-label="Downvote"
+          onClick={() => onDownvote?.(post)}
+          disabled={!onDownvote}
+        >
+          ▼
+        </button>
+      </div>
+
+      <div className="post-body">
+        <div className="post-meta">
+          <span className="post-subreddit">r/{post.subreddit}</span>
+          <span className="post-dot">•</span>
+          <span data-testid="post-author">Posted by {post.author}</span>
+          <span className="post-dot">•</span>
+          <span data-testid="post-time">{formatRelativeTime(post.createdUtc)}</span>
+        </div>
+
+        <h2 className="post-title">
+          <button
+            type="button"
+            className="post-title-btn"
+            data-testid="post-card"
+            aria-label={`Open post: ${post.title || post.id}`}
+            onClick={() => onSelect?.(post)}
+          >
+            {post.title}
+          </button>
+        </h2>
+
+        <div className="post-actions">
+          <span className="post-action" data-testid="post-comment-count">
+            💬 {formatScore(post.numComments)} comments
+          </span>
+        </div>
+      </div>
+
+      {showThumbnail && (
+        <div className="post-thumbnail-wrap">
+          <img
+            data-testid="post-thumbnail"
+            className="post-thumbnail"
+            src={post.thumbnail}
+            alt=""
+          />
+        </div>
+      )}
+    </div>
   );
 };

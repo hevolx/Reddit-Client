@@ -8,10 +8,10 @@ interface RedditChild {
     score: number;
     num_comments: number;
     created_utc: number;
-    thumbnail: string;
     permalink: string;
     subreddit: string;
     selftext: string;
+    thumbnail?: string;
   };
 }
 
@@ -23,10 +23,10 @@ export interface Post {
   score: number;
   numComments: number;
   createdUtc: number;
-  thumbnail: string;
   permalink: string;
   subreddit: string;
   selftext: string;
+  thumbnail?: string;
 }
 
 interface PostsState {
@@ -56,10 +56,10 @@ export const fetchPosts = createAsyncThunk(
         score: child.data.score,
         numComments: child.data.num_comments,
         createdUtc: child.data.created_utc,
-        thumbnail: child.data.thumbnail,
         permalink: child.data.permalink,
         subreddit: child.data.subreddit,
-        selftext: child.data.selftext
+        selftext: child.data.selftext,
+        thumbnail: child.data.thumbnail?.replace(/&amp;/g, '&')
       }));
     } else {
       throw new Error(`HTTP error ${response.status}`);
