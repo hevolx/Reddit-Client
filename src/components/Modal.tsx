@@ -2,11 +2,12 @@ import { useEffect, useRef } from 'react'
 type ModalProps = {
   onClose: () => void;
   label: string;
+  triggerRef?: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
 };
 
 /** Accessible modal dialog — uses the native `<dialog>` API for focus trapping and background inertness. */
-export const Modal = ({ onClose, label, children }: ModalProps) => {
+export const Modal = ({ onClose, label, triggerRef, children }: ModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -28,6 +29,7 @@ export const Modal = ({ onClose, label, children }: ModalProps) => {
   const handleClose = () => {
     dialogRef.current?.close();
     onClose();
+    triggerRef?.current?.focus();
   };
 
   return (
