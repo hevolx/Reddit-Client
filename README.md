@@ -37,10 +37,10 @@ When I opened a pull request, I used the AI review tool CodeRabbit to identify w
 
 ## Sequence diagram
 ### During epic 1
-![Sequence diagram during the first epic iteration](/reddit-client/public/img/epic-1.png)
+![Sequence diagram during the first epic iteration](public/img/epic-1.png)
 
 ### During epic 3
-![Sequence diagram during the third epic iteration](/reddit-client/public/img/epic-3.png)
+![Sequence diagram during the third epic iteration](public/img/epic-3.png)
 
 ## Code style
 
