@@ -30,4 +30,10 @@ describe("ErrorBanner", () => {
 
     expect(onRetry).toHaveBeenCalledOnce();
   });
+
+  it("renders no retry button when onRetry is not provided", () => {
+    render(<ErrorBanner message="Something went wrong" />);
+
+    expect(screen.queryByRole("button", { name: /try again/i })).not.toBeInTheDocument();
+  });
 });

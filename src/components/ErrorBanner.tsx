@@ -7,7 +7,7 @@ export default function ErrorBanner({ message, onRetry }: Props) {
   return (
     <>
       <p role="alert">{message}</p>
-      <button onClick={() => onRetry()}>Try again</button>
+      {onRetry && <button onClick={() => onRetry()}>Try again</button>}
     </>
   );
 }
