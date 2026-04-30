@@ -31,4 +31,16 @@ describe('Modal', () => {
     // Assert
     expect(onClose).toHaveBeenCalledOnce()
   })
+
+  it('ESC key calls onClose', async () => {
+    // Arrange
+    const onClose = vi.fn()
+    render(<Modal onClose={onClose}>Content</Modal>)
+
+    // Act
+    await userEvent.keyboard('{Escape}')
+
+    // Assert
+    expect(onClose).toHaveBeenCalledOnce()
+  })
 })
