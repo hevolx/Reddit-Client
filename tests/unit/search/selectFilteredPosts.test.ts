@@ -11,7 +11,7 @@ describe('selectFilteredPosts', () => {
     // Arrange
     const state = {
       posts: { status: 'succeeded' as const, posts, error: null },
-      filter: { query: 'REACT', category: undefined },
+      filter: { query: 'REACT', category: null },
     };
 
     // Act
@@ -26,7 +26,7 @@ describe('selectFilteredPosts', () => {
     // Arrange
     const state = {
       posts: { status: 'succeeded' as const, posts, error: null },
-      filter: { query: '', category: undefined },
+      filter: { query: '', category: null },
     };
 
     // Act

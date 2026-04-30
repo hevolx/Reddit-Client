@@ -6,7 +6,7 @@ import { Modal } from '../../src/components/Modal'
 describe('Modal', () => {
   it('has role "dialog"', () => {
     // Arrange & Act
-    render(<Modal onClose={vi.fn()}>Content</Modal>)
+    render(<Modal onClose={vi.fn()} label="Test modal">Content</Modal>)
 
     // Assert
     expect(screen.getByRole('dialog')).toBeInTheDocument()
@@ -14,7 +14,7 @@ describe('Modal', () => {
 
   it('has aria-modal "true"', () => {
     // Arrange & Act
-    render(<Modal onClose={vi.fn()}>Content</Modal>)
+    render(<Modal onClose={vi.fn()} label="Test modal">Content</Modal>)
 
     // Assert
     expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true')
@@ -23,7 +23,7 @@ describe('Modal', () => {
   it('close button calls onClose', async () => {
     // Arrange
     const onClose = vi.fn()
-    render(<Modal onClose={onClose}>Content</Modal>)
+    render(<Modal onClose={onClose} label="Test modal">Content</Modal>)
 
     // Act
     await userEvent.click(screen.getByTestId('modal-close'))
@@ -35,7 +35,7 @@ describe('Modal', () => {
   it('ESC key calls onClose', async () => {
     // Arrange
     const onClose = vi.fn()
-    render(<Modal onClose={onClose}>Content</Modal>)
+    render(<Modal onClose={onClose} label="Test modal">Content</Modal>)
 
     // Act
     await userEvent.keyboard('{Escape}')
@@ -47,7 +47,7 @@ describe('Modal', () => {
   it('backdrop click calls onClose', async () => {
     // Arrange
     const onClose = vi.fn()
-    render(<Modal onClose={onClose}>Content</Modal>)
+    render(<Modal onClose={onClose} label="Test modal">Content</Modal>)
 
     // Act
     await userEvent.click(screen.getByTestId('modal-backdrop'))
@@ -59,7 +59,7 @@ describe('Modal', () => {
   it('click inside content does not call onClose', async () => {
     // Arrange
     const onClose = vi.fn()
-    render(<Modal onClose={onClose}>Content</Modal>)
+    render(<Modal onClose={onClose} label="Test modal">Content</Modal>)
 
     // Act
     await userEvent.click(screen.getByRole('dialog'))
@@ -70,7 +70,7 @@ describe('Modal', () => {
 
   it('sets focus on first focusable element on open', () => {
     // Arrange & Act
-    render(<Modal onClose={vi.fn()}>Content</Modal>)
+    render(<Modal onClose={vi.fn()} label="Test modal">Content</Modal>)
 
     // Assert
     expect(screen.getByTestId('modal-close')).toHaveFocus()

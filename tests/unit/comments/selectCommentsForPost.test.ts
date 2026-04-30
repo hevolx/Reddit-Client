@@ -7,8 +7,8 @@ describe('selectCommentsForPost', () => {
     const state = {
       comments: {
         commentsByPostId: {},
-        status: 'idle' as const,
-        error: null,
+        statusByPostId: {},
+        errorByPostId: {},
       },
     }
 
@@ -28,8 +28,8 @@ describe('selectCommentsForPost', () => {
     const state = {
       comments: {
         commentsByPostId: { post42: comments },
-        status: 'succeeded' as const,
-        error: null,
+        statusByPostId: {},
+        errorByPostId: {},
       },
     }
 
