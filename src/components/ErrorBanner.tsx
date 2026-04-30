@@ -1,9 +1,9 @@
-type Props = {
+type ErrorProps = {
   message: string;
   onRetry: () => void;
 };
 
-export default function ErrorBanner({ message, onRetry }: Props) {
+export default function ErrorBanner({ message, onRetry }: ErrorProps) {
   return (
     <>
       <p role="alert">{message}</p>
