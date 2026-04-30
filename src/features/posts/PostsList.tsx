@@ -11,7 +11,7 @@ export const PostsList = ({ status, error, onRetry, posts }: PostsListProps) => 
     return (
       <ul>
         {Array.from({ length: 5 }).map((_, i) =>
-          <li key={i} data-testid="post-skeleton" />
+          <li key={i} data-testid="post-skeleton" aria-busy="true" />
         )}
       </ul>
     );

@@ -155,4 +155,18 @@ describe('PostCard', () => {
     // Assert
     expect(onSelect).toHaveBeenCalledWith(post);
   });
+
+  it('calls onSelect when Enter is pressed on the focused card', async () => {
+    // Arrange
+    const post = makePost();
+    const onSelect = vi.fn();
+    render(<PostCard post={post} onSelect={onSelect} />);
+    screen.getByTestId('post-card').focus();
+
+    // Act
+    await userEvent.keyboard('{Enter}');
+
+    // Assert
+    expect(onSelect).toHaveBeenCalledWith(post);
+  });
 });

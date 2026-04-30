@@ -1,34 +1,36 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 type ModalProps = {
   onClose: () => void;
   label: string;
+  triggerRef?: React.RefObject<HTMLElement>;
   children?: React.ReactNode;
 };
 
 /** Accessible modal dialog — uses the native `<dialog>` API for focus trapping and background inertness. */
-export const Modal = ({ onClose, label, children }: ModalProps) => {
+export const Modal = ({ onClose, label, triggerRef, children }: ModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  const handleClose = useCallback(() => {
+    dialogRef.current?.close();
+    onClose();
+    triggerRef?.current?.focus();
+  }, [onClose, triggerRef]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
       }
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [onClose]);
+  }, [handleClose]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
     dialog?.showModal();
     return () => { dialog?.close(); };
   }, []);
-
-  const handleClose = () => {
-    dialogRef.current?.close();
-    onClose();
-  };
 
   return (
     <div data-testid="modal-backdrop" onClick={handleClose}>

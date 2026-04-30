@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'vitest-axe'
 import { Modal } from '../../src/components/Modal'
 
 describe('Modal', () => {
@@ -74,5 +75,40 @@ describe('Modal', () => {
 
     // Assert
     expect(screen.getByTestId('modal-close')).toHaveFocus()
+  })
+
+  it('returns focus to trigger element when modal closes', async () => {
+    // Arrange
+    const { rerender } = render(
+      <div>
+        <button data-testid="trigger">Open</button>
+        <Modal onClose={vi.fn()} label="Test modal" triggerRef={{ current: null } as unknown as React.RefObject<HTMLElement>}>Content</Modal>
+      </div>
+    )
+    const trigger = screen.getByTestId('trigger')
+    trigger.focus()
+
+    // Rerender with a ref pointing to the trigger
+    const triggerRef = { current: trigger }
+    rerender(
+      <div>
+        <button data-testid="trigger">Open</button>
+        <Modal onClose={vi.fn()} label="Test modal" triggerRef={triggerRef}>Content</Modal>
+      </div>
+    )
+
+    // Act — close the modal
+    await userEvent.click(screen.getByTestId('modal-close'))
+
+    // Assert
+    expect(trigger).toHaveFocus()
+  })
+
+  it('open modal has no axe violations', async () => {
+    // Act
+    const { container } = render(<Modal onClose={vi.fn()} label="Test modal">Content</Modal>)
+
+    // Assert
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

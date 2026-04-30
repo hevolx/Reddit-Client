@@ -61,4 +61,15 @@ describe('PostsList', () => {
     // Assert
     expect(onRetry).toHaveBeenCalledOnce();
   });
+
+  it('skeleton loaders have aria-busy "true"', () => {
+    // Act
+    render(<PostsList posts={[]} status="loading" error={null} />);
+
+    // Assert
+    const skeletons = screen.getAllByTestId('post-skeleton');
+    skeletons.forEach((skeleton) => {
+      expect(skeleton).toHaveAttribute('aria-busy', 'true');
+    });
+  });
 });
