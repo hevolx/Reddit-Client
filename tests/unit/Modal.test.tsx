@@ -55,4 +55,16 @@ describe('Modal', () => {
     // Assert
     expect(onClose).toHaveBeenCalledOnce()
   })
+
+  it('click inside content does not call onClose', async () => {
+    // Arrange
+    const onClose = vi.fn()
+    render(<Modal onClose={onClose}>Content</Modal>)
+
+    // Act
+    await userEvent.click(screen.getByRole('dialog'))
+
+    // Assert
+    expect(onClose).not.toHaveBeenCalled()
+  })
 })

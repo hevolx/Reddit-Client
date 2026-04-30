@@ -15,11 +15,8 @@ export const Modal = (props: ModalProps) => {
   }, []);
   return (
     <div data-testid="modal-backdrop" onClick={props.onClose}>
-      <dialog open aria-modal="true" tabIndex={-1}>
-        <button data-testid="modal-close" onClick={(e) => {
-          e.stopPropagation()
-          props.onClose()
-        }}>Close</button>
+      <dialog open aria-modal="true" tabIndex={-1} onClick={(e) => { e.stopPropagation() }}>
+        <button data-testid="modal-close" onClick={props.onClose}>Close</button>
       </dialog>
     </div>
   );
