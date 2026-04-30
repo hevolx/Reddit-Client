@@ -8,4 +8,10 @@ describe("ErrorBanner", () => {
 
     expect(screen.getByText("Something went wrong")).toBeInTheDocument();
   });
+
+  it("has role alert", () => {
+    render(<ErrorBanner message="Something went wrong" />);
+
+    expect(screen.getByRole("alert")).toBeInTheDocument();
+  });
 });

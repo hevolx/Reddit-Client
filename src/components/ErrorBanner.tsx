@@ -6,7 +6,7 @@ type Props = {
 export default function ErrorBanner({ message, onRetry }: Props) {
   return (
     <>
-      <p>{message}</p>
+      <p role="alert">{message}</p>
     </>
   );
 }
