@@ -13,6 +13,7 @@ const makePost = (overrides = {}) => ({
   thumbnail: '',
   permalink: '/r/test/comments/abc123',
   subreddit: 'test',
+  selftext: '',
   ...overrides,
 });
 
@@ -63,7 +64,9 @@ describe('PostCard', () => {
 
   it('displays relative time', () => {
     // Arrange
+    vi.useFakeTimers();
     const now = Math.floor(Date.now() / 1000);
+    vi.setSystemTime(now * 1000);
     const post = makePost({ createdUtc: now - 30 });
 
     // Act
@@ -71,6 +74,7 @@ describe('PostCard', () => {
 
     // Assert
     expect(screen.getByTestId('post-time')).toHaveTextContent('just now');
+    vi.useRealTimers();
   });
 
   it('renders img element when thumbnail is a valid URL', () => {

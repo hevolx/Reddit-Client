@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface FilterState {
   query: string;
@@ -15,11 +15,11 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     /** Sets the free-text search query. */
-    setQuery(state, action) {
+    setQuery(state, action: PayloadAction<string>) {
       state.query = action.payload;
     },
     /** Sets the active subreddit category, or null to show all. */
-    setCategory(state, action) {
+    setCategory(state, action: PayloadAction<string | null>) {
       state.category = action.payload;
     },
     /** Resets both query and category to their initial empty state. */

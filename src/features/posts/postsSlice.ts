@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 interface RedditChild {
   data: {
@@ -11,6 +11,7 @@ interface RedditChild {
     thumbnail: string;
     permalink: string;
     subreddit: string;
+    selftext: string;
   };
 }
 
@@ -25,6 +26,7 @@ export interface Post {
   thumbnail: string;
   permalink: string;
   subreddit: string;
+  selftext: string;
 }
 
 interface PostsState {
@@ -56,7 +58,8 @@ export const fetchPosts = createAsyncThunk(
         createdUtc: child.data.created_utc,
         thumbnail: child.data.thumbnail,
         permalink: child.data.permalink,
-        subreddit: child.data.subreddit
+        subreddit: child.data.subreddit,
+        selftext: child.data.selftext
       }));
     } else {
       throw new Error(`HTTP error ${response.status}`);
