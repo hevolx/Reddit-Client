@@ -8,22 +8,27 @@ describe('commentsSlice', () => {
     expect(state.commentsByPostId).toEqual({})
   })
 
-  it('initial state status is idle', () => {
+  it('initial state statusByPostId is empty object', () => {
     const state = commentsReducer(undefined, { type: '@@INIT' })
 
-    expect(state.status).toBe('idle')
+    expect(state.statusByPostId).toEqual({})
   })
 
-  it('initial state error is null', () => {
+  it('initial state errorByPostId is empty object', () => {
     const state = commentsReducer(undefined, { type: '@@INIT' })
 
-    expect(state.error).toBeNull()
+    expect(state.errorByPostId).toEqual({})
   })
 
-  it('fetchComments.pending sets status to loading', () => {
-    const state = commentsReducer(undefined, { type: 'comments/fetchComments/pending' })
+  it('fetchComments.pending sets statusByPostId to loading for that post', () => {
+    const action = {
+      type: 'comments/fetchComments/pending',
+      meta: { arg: { postId: 'post123', permalink: '/r/test/comments/post123' } },
+    }
+    const state = commentsReducer(undefined, action)
 
-    expect(state.status).toBe('loading')
+    expect(state.statusByPostId['post123']).toBe('loading')
+    expect(state.errorByPostId['post123']).toBeNull()
   })
 
   it('fetchComments.fulfilled stores comments under payload.postId', () => {
@@ -38,14 +43,16 @@ describe('commentsSlice', () => {
     expect(state.commentsByPostId['post123']).toEqual(comments)
   })
 
-  it('fetchComments.rejected stores error message', () => {
+  it('fetchComments.rejected stores error message for that post', () => {
     const action = {
       type: 'comments/fetchComments/rejected',
+      meta: { arg: { postId: 'post123', permalink: '/r/test/comments/post123' } },
       error: { message: 'Network error' },
     }
 
     const state = commentsReducer(undefined, action)
 
-    expect(state.error).toBe('Network error')
+    expect(state.statusByPostId['post123']).toBe('failed')
+    expect(state.errorByPostId['post123']).toBe('Network error')
   })
 })

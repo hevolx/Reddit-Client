@@ -1,11 +1,12 @@
 import { useEffect, useRef } from 'react'
 type ModalProps = {
   onClose: () => void;
+  label: string;
   children?: React.ReactNode;
 };
 
 /** Accessible modal dialog — uses the native `<dialog>` API for focus trapping and background inertness. */
-export const Modal = ({ onClose, children }: ModalProps) => {
+export const Modal = ({ onClose, label, children }: ModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -31,7 +32,12 @@ export const Modal = ({ onClose, children }: ModalProps) => {
 
   return (
     <div data-testid="modal-backdrop" onClick={handleClose}>
-      <dialog ref={dialogRef} aria-modal="true" tabIndex={-1} onClick={(e) => { e.stopPropagation() }}>
+      <dialog
+        ref={dialogRef}
+        aria-modal="true"
+        aria-label={label}
+        tabIndex={-1}
+        onClick={(e) => { e.stopPropagation() }}>
         <button data-testid="modal-close" onClick={handleClose} autoFocus>Close</button>
         {children}
       </dialog>

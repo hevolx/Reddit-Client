@@ -9,6 +9,7 @@ export function SearchInput({ onChange, value }: {
   const [internalValue, setInternalValue] = useState(value);
 
   useEffect(() => {
+    clearTimeout(timerId.current);
     setInternalValue(value);
   }, [value]);
 

@@ -3,7 +3,7 @@ import type { Post } from '../posts/postsSlice';
 /** Filters posts by subreddit category (exact match) and title query (substring, case-insensitive). */
 export function selectFilteredPosts({ filter, posts }: {
   posts: { posts: Post[] };
-  filter: { query: string, category?: string };
+  filter: { query: string, category: string | null };
 }) {
   const queryLower = filter.query.toLowerCase();
   const categoryLower = filter.category?.toLowerCase();

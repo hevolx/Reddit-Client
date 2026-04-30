@@ -20,17 +20,19 @@ export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
         : null}
       {showStatus === status
         ? <p data-testid="comments-loading">Loading comments...</p>
-        : comments?.length === 0
-          ? <p data-testid="comments-empty">No comments yet</p>
-          : comments?.map((comment) => {
-            return (
-              <div key={comment.id} data-testid="comment">
-                <p>{comment.author}</p>
-                <p>{comment.body}</p>
-                <p>{comment.score}</p>
-              </div>
-            )
-          })}
+        : status === 'failed'
+          ? <p data-testid="comments-error">Failed to load comments</p>
+          : comments?.length === 0
+            ? <p data-testid="comments-empty">No comments yet</p>
+            : comments?.map((comment) => {
+              return (
+                <div key={comment.id} data-testid="comment">
+                  <p>{comment.author}</p>
+                  <p>{comment.body}</p>
+                  <p>{comment.score}</p>
+                </div>
+              )
+            })}
     </>
   )
 }

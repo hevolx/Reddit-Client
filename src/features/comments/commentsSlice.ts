@@ -9,14 +9,14 @@ export interface Comments {
 
 interface CommentsState {
   commentsByPostId: Record<string, Comments[]>;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
+  statusByPostId: Record<string, 'idle' | 'loading' | 'succeeded' | 'failed'>;
+  errorByPostId: Record<string, string | null>;
 }
 
 const initialState: CommentsState = {
   commentsByPostId: {},
-  status: 'idle',
-  error: null,
+  statusByPostId: {},
+  errorByPostId: {},
 }
 
 interface CommentsChild {
@@ -78,16 +78,20 @@ const commentsSlice = createSlice({
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchComments.pending, (state) => {
-      state.status = 'loading';
+    builder.addCase(fetchComments.pending, (state, action) => {
+      const postId = action.meta.arg.postId;
+      state.statusByPostId[postId] = 'loading';
+      state.errorByPostId[postId] = null;
     });
     builder.addCase(fetchComments.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.commentsByPostId[action.payload.postId] = action.payload.comments;
+      const postId = action.payload.postId;
+      state.statusByPostId[postId] = 'succeeded';
+      state.commentsByPostId[postId] = action.payload.comments;
     });
     builder.addCase(fetchComments.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error.message ?? 'Unknown error';
+      const postId = action.meta.arg.postId;
+      state.statusByPostId[postId] = 'failed';
+      state.errorByPostId[postId] = action.error.message ?? 'Unknown error';
     });
   }
 });
