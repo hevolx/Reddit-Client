@@ -74,4 +74,12 @@ describe('SearchInput', () => {
 
     vi.useRealTimers();
   });
+
+  it('search input has aria-label', () => {
+    // Act
+    render(<SearchInput onChange={() => {}} value="" />);
+
+    // Assert
+    expect(screen.getByRole('searchbox')).toHaveAttribute('aria-label');
+  });
 });
