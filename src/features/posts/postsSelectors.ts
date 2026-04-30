@@ -9,8 +9,8 @@ export type PostsState = {
 type RootState = { posts: PostsState };
 
 /** Selects the full list of fetched posts. */
-export const selectAllPosts = (state: RootState) => state.posts.posts;
+export const selectAllPosts = ({ posts }: RootState) => posts.posts;
 /** Selects the current fetch status. */
-export const selectPostsStatus = (state: RootState) => state.posts.status;
+export const selectPostsStatus = ({ posts }: RootState) => posts.status;
 /** Selects the error message from a failed fetch, or null. */
-export const selectPostsError = (state: RootState) => state.posts.error;
+export const selectPostsError = ({ posts }: RootState) => posts.error;

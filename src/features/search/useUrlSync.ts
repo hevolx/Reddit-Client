@@ -9,7 +9,7 @@ import { setQuery, setCategory } from './filterSlice';
  */
 export function useUrlSync() {
   const query = useSelector((state: { filter: { query: string } }) => state.filter.query);
-  const category = useSelector((state: { filter: { category: string } }) => state.filter.category);
+  const category = useSelector((state: { filter: { category: string | null } }) => state.filter.category);
   const dispatch = useDispatch();
   const isMounted = useRef(false);
 
@@ -36,6 +36,6 @@ export function useUrlSync() {
       searchParams.delete('subreddit');
     }
     const qs = searchParams.toString();
-    window.history.replaceState({}, '', qs ? `?${qs}` : window.location.pathname);
+    window.history.replaceState({}, '', qs ? `?${qs}${window.location.hash}` : window.location.pathname + window.location.hash);
   }, [query, category]);
 }

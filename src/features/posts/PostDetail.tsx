@@ -3,10 +3,11 @@ import { Comments } from '../comments/commentsSlice';
 
 type PostDetailProps = {
   post: Post;
-  status: string;
+  status?: string;
   comments?: Comments[];
 };
 
+/** Renders the full detail view for a post, including its body text and loaded comments. */
 export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
   const showSelftext = !!post.selftext;
   const showStatus = "loading";
@@ -17,20 +18,19 @@ export const PostDetail = ({ post, status, comments }: PostDetailProps) => {
       {showSelftext
         ? <p data-testid="post-selftext">{post.selftext}</p>
         : null}
-      {showStatus == status
+      {showStatus === status
         ? <p data-testid="comments-loading">Loading comments...</p>
-        : null}
-      {comments?.length == 0
-        ? <p data-testid="comments-empty">No comments yet</p>
-        : comments?.map((comment) => {
-          return (
-            <div data-testid="comment">
-              <p>{comment.author}</p>
-              <p>{comment.body}</p>
-              <p>{comment.score}</p>
-            </div>
-          )
-        })}
+        : comments?.length === 0
+          ? <p data-testid="comments-empty">No comments yet</p>
+          : comments?.map((comment) => {
+            return (
+              <div key={comment.id} data-testid="comment">
+                <p>{comment.author}</p>
+                <p>{comment.body}</p>
+                <p>{comment.score}</p>
+              </div>
+            )
+          })}
     </>
   )
 }
