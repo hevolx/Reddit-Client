@@ -45,7 +45,7 @@ const initialState: PostsState = {
 export const fetchPosts = createAsyncThunk(
   'posts/fetchPosts',
   async (subreddit: string) => {
-    const response = await fetch(`/api/reddit/r/${subreddit}.json`);
+    const response = await fetch(`${import.meta.env.BASE_URL}api/reddit/r/${subreddit}.json`);
     if (response.ok) {
       const data = await response.json();
       const children = data.data.children;

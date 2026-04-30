@@ -25,7 +25,7 @@ describe('fetchComments', () => {
 
     // Assert
     expect(fetch).toHaveBeenCalledWith(
-      '/api/reddit/r/reactjs/comments/abc123/test.json',
+      '/projects/reddit/api/reddit/r/reactjs/comments/abc123/test.json',
     )
   })
 

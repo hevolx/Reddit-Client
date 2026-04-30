@@ -39,7 +39,7 @@ type FetchCommentsArg = {
 export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
   async (arg: FetchCommentsArg) => {
-    const response = await fetch(`/api/reddit${arg.permalink.replace(/\/$/, '')}.json`);
+    const response = await fetch(`${import.meta.env.BASE_URL}api/reddit${arg.permalink.replace(/\/$/, '')}.json`);
     if (response.ok) {
       const data = await response.json();
       if (!Array.isArray(data) || data.length < 2 || !data[1]?.data?.children) {

@@ -17,7 +17,7 @@ describe('fetchPosts', () => {
     await fetchPosts('reactjs')(dispatch, getState, undefined);
 
     // Assert
-    expect(fetch).toHaveBeenCalledWith('/api/reddit/r/reactjs.json');
+    expect(fetch).toHaveBeenCalledWith('/projects/reddit/api/reddit/r/reactjs.json');
   });
 
   it('throws when fetch returns HTTP >= 400', async () => {

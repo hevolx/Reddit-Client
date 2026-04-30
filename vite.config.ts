@@ -7,10 +7,10 @@ export default defineConfig({
   base: '/projects/reddit/',
   server: {
     proxy: {
-      '/api/reddit': {
+      '/projects/reddit/api/reddit': {
         target: 'https://www.reddit.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/reddit/, ''),
+        rewrite: (path) => path.replace(/^\/projects\/reddit\/api\/reddit/, ''),
       },
     },
   },
