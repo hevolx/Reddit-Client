@@ -82,7 +82,7 @@ describe('Modal', () => {
     const { rerender } = render(
       <div>
         <button data-testid="trigger">Open</button>
-        <Modal onClose={vi.fn()} label="Test modal" triggerRef={{ current: null }}>Content</Modal>
+        <Modal onClose={vi.fn()} label="Test modal" triggerRef={{ current: null } as unknown as React.RefObject<HTMLElement>}>Content</Modal>
       </div>
     )
     const trigger = screen.getByTestId('trigger')
