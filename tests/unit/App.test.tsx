@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { axe } from 'vitest-axe'
 import { Provider } from 'react-redux'
 import { store } from '../../src/app/store'
 import App from '../../src/App'
@@ -35,5 +36,13 @@ describe('App', () => {
     expect(
       search.compareDocumentPosition(chips) & Node.DOCUMENT_POSITION_FOLLOWING
     ).toBeTruthy()
+  })
+
+  it('main view has no axe violations', async () => {
+    // Act
+    const { container } = renderApp()
+
+    // Assert
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

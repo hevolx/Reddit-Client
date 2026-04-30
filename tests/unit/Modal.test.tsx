@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { axe } from 'vitest-axe'
 import { Modal } from '../../src/components/Modal'
 
 describe('Modal', () => {
@@ -101,5 +102,13 @@ describe('Modal', () => {
 
     // Assert
     expect(trigger).toHaveFocus()
+  })
+
+  it('open modal has no axe violations', async () => {
+    // Act
+    const { container } = render(<Modal onClose={vi.fn()} label="Test modal">Content</Modal>)
+
+    // Assert
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

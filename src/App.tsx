@@ -5,7 +5,7 @@ function App() {
     <>
       <header role="banner">
         <h1>Reddit Client</h1>
-        <search role="searchbox" />
+        <input type="search" aria-label="Search posts" />
       </header>
       <div data-testid="filter-chips">
         <FilterChips
